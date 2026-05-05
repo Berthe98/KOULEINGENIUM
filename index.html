@@ -3,2057 +3,2267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koulé Ingenium | Building Arts Meet Science & Tools</title>
+    <title>Koulé Ingenium | Where Building Arts Meet Science</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Orbitron:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --primary: #1a5fb4;
-            --primary-dark: #1c3d5a;
-            --secondary: #ff8c00;
-            --secondary-dark: #cc7000;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --font-main: 'Roboto', sans-serif;
-            --font-heading: 'Orbitron', sans-serif;
+            --ink: #0d1117;
+            --paper: #f5f0e8;
+            --accent: #e8651a;
+            --accent2: #1a5fb4;
+            --gold: #c9952a;
+            --muted: #6b6560;
+            --card-bg: #ffffff;
+            --border: rgba(13,17,23,0.12);
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-body: 'DM Sans', sans-serif;
         }
-        
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: var(--font-main);
-            color: var(--dark);
-            line-height: 1.6;
-            background-color: #f5f7fa;
+            font-family: var(--font-body);
+            color: var(--ink);
+            background: var(--paper);
+            line-height: 1.65;
+            overflow-x: hidden;
         }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--primary-dark);
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-        }
-        
-        h2 {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        h2:after {
+
+        /* ─── NOISE TEXTURE OVERLAY ─── */
+        body::before {
             content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background-color: var(--secondary);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        section {
-            padding: 5rem 1.5rem;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .btn:hover {
-            background-color: var(--secondary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-        }
-        
-        .btn-success {
-            background-color: var(--success);
-        }
-        
-        .btn-warning {
-            background-color: var(--warning);
-        }
-        
-        .btn-danger {
-            background-color: var(--danger);
-        }
-        
-        .section-subtitle {
-            text-align: center;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            font-size: 1.1rem;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             position: fixed;
-            width: 100%;
-            top: 0;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.6;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--paper); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+        /* ─── HEADER ─── */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
+            padding: 0 2rem;
+            background: rgba(245,240,232,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
-        
+
         .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.2rem 1.5rem;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
+            gap: 0.75rem;
             text-decoration: none;
         }
-        
-        .logo-icon {
-            color: var(--primary);
-            font-size: 2rem;
-            margin-right: 0.8rem;
-        }
-        
-        .logo-text {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--dark);
-        }
-        
-        .logo-text span:first-child {
-            color: var(--primary);
-        }
-        
-        .logo-text span:last-child {
-            color: var(--secondary);
-        }
-        
-        .nav-links {
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            background: var(--ink);
+            border-radius: 4px;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--accent);
+            letter-spacing: -1px;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        .logo-text em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        nav ul {
             list-style: none;
+            display: flex;
+            gap: 2.5rem;
         }
-        
-        .nav-links li {
-            margin-left: 2rem;
-        }
-        
-        .nav-links a {
+
+        nav ul a {
             text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
+            color: var(--ink);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            opacity: 0.6;
+            transition: opacity 0.2s, color 0.2s;
         }
-        
-        .nav-links a:hover {
-            color: var(--primary);
+
+        nav ul a:hover { opacity: 1; color: var(--accent); }
+
+        .nav-cta {
+            background: var(--ink) !important;
+            color: var(--paper) !important;
+            padding: 0.5rem 1.2rem !important;
+            border-radius: 3px;
+            opacity: 1 !important;
+            transition: background 0.2s !important;
         }
-        
+
+        .nav-cta:hover { background: var(--accent) !important; color: white !important; }
+
         .mobile-menu-btn {
             display: none;
             background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--primary);
-            cursor: pointer;
-        }
-        
-        /* Admin Panel Styles */
-        .admin-btn {
-            background-color: var(--primary-dark);
-            margin-left: 1rem;
-        }
-        
-        .admin-panel {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 400px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            z-index: 2000;
-            transition: right 0.3s ease;
-            overflow-y: auto;
-            padding: 2rem;
-        }
-        
-        .admin-panel.active {
-            right: 0;
-        }
-        
-        .admin-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1999;
-        }
-        
-        .admin-overlay.active {
-            display: block;
-        }
-        
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--light-gray);
-        }
-        
-        .admin-section {
-            margin-bottom: 2.5rem;
-        }
-        
-        .admin-section h3 {
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .admin-form {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.7rem;
             border-radius: 4px;
-            font-family: var(--font-main);
-            font-size: 1rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--ink);
         }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        textarea.form-control {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .admin-items {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .admin-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            border: 1px solid var(--light-gray);
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 2rem 5rem;
             position: relative;
+            overflow: hidden;
+            background: var(--ink);
         }
-        
-        .admin-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 30%, #1a3a6b 0%, #0d1117 60%);
         }
-        
-        .admin-item-actions {
-            display: flex;
-            gap: 0.5rem;
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(232,101,26,0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(232,101,26,0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridShift 20s linear infinite;
         }
-        
-        .btn-sm {
-            padding: 0.3rem 0.8rem;
-            font-size: 0.8rem;
+
+        @keyframes gridShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 60px 60px; }
         }
-        
-        /* Login Modal */
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+
+        .hero-circuit {
+            position: absolute;
+            top: 0; right: 0;
+            width: 55%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 3000;
-            justify-content: center;
+            opacity: 0.07;
+            background-image: radial-gradient(circle, #e8651a 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .hero-tag {
+            position: relative;
+            display: inline-flex;
             align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
         }
-        
-        .login-modal.active {
-            display: flex;
+
+        .hero-tag::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--accent);
         }
-        
-        .login-box {
-            background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
-        
-        .login-box h2 {
+
+        .hero-title {
+            position: relative;
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 10vw, 10rem);
+            color: var(--paper);
+            line-height: 0.9;
+            letter-spacing: 3px;
+            max-width: 900px;
             margin-bottom: 2rem;
         }
-        
-        .login-box .form-group {
-            margin-bottom: 1.5rem;
+
+        .hero-title .accent { color: var(--accent); }
+
+        .hero-subtitle {
+            position: relative;
+            max-width: 560px;
+            color: rgba(245,240,232,0.55);
+            font-size: 1.05rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            line-height: 1.7;
         }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(26, 95, 180, 0.85), rgba(28, 61, 90, 0.9)), url('https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 12rem 1.5rem 8rem;
-            margin-top: 70px;
-        }
-        
-        .hero h1 {
-            font-size: 3.2rem;
-            color: white;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-            color: rgba(255,255,255,0.9);
-        }
-        
-        .hero-btns {
+
+        .hero-actions {
+            position: relative;
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
         }
-        
-        /* Mission Section */
-        .mission {
-            background-color: white;
-        }
-        
-        .mission-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+
+        .btn {
+            display: inline-flex;
             align-items: center;
-        }
-        
-        .mission-text h2 {
-            text-align: left;
-        }
-        
-        .mission-text h2:after {
-            left: 0;
-            transform: none;
-        }
-        
-        .mission-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-        
-        .stat-item {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: var(--light-gray);
-            border-radius: 8px;
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
+            gap: 0.6rem;
+            padding: 0.85rem 2rem;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
             font-weight: 700;
-            color: var(--primary);
-            font-family: var(--font-heading);
         }
-        
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-        
-        .mission-image {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .mission-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        /* Services Section */
-        .services {
-            background-color: var(--light-gray);
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .service-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        /* Portfolio Section */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-        
-        .portfolio-item {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .portfolio-img {
-            height: 220px;
-            overflow: hidden;
-        }
-        
-        .portfolio-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .portfolio-item:hover .portfolio-img img {
-            transform: scale(1.05);
-        }
-        
-        .portfolio-info {
-            padding: 1.5rem;
-        }
-        
-        .portfolio-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .portfolio-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-        
-        .tag {
-            background-color: var(--light-gray);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-        
-        .tag.in-progress {
-            background-color: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffeaa7;
-        }
-        
-        .tag.completed {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .tag.upcoming {
-            background-color: #cce5ff;
-            color: #004085;
-            border: 1px solid #b8daff;
-        }
-        
-        /* Courses Section */
-        .courses {
-            background-color: var(--light-gray);
-        }
-        
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .course-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .course-header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .course-header h3 {
-            color: white;
-            margin-bottom: 0;
-        }
-        
-        .course-body {
-            padding: 1.5rem;
-        }
-        
-        .course-features {
-            list-style: none;
-            margin: 1.5rem 0;
-        }
-        
-        .course-features li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--light-gray);
-        }
-        
-        .course-features li:last-child {
-            border-bottom: none;
-        }
-        
-        .course-features i {
-            color: var(--secondary);
-            margin-right: 0.5rem;
-        }
-        
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-        
-        .about-text h2 {
-            text-align: left;
-        }
-        
-        .about-text h2:after {
-            left: 0;
-            transform: none;
-        }
-        
-        .skills-list {
-            margin: 2rem 0;
-        }
-        
-        .skill-item {
-            margin-bottom: 1.5rem;
-        }
-        
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        
-        .skill-bar {
-            height: 10px;
-            background-color: var(--light-gray);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .skill-level {
-            height: 100%;
-            background-color: var(--primary);
-            border-radius: 5px;
-        }
-        
-        /* Contact Section */
-        .contact {
-            background-color: var(--primary-dark);
+
+        .btn-primary {
+            background: var(--accent);
             color: white;
         }
-        
-        .contact h2 {
+        .btn-primary:hover { background: #cf5515; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,101,26,0.4); }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--paper);
+            border: 1px solid rgba(245,240,232,0.3);
+        }
+        .btn-outline:hover { border-color: var(--paper); background: rgba(245,240,232,0.08); }
+
+        .btn-dark {
+            background: var(--ink);
+            color: var(--paper);
+        }
+        .btn-dark:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+
+        .btn-accent2 {
+            background: var(--accent2);
             color: white;
         }
-        
-        .contact h2:after {
-            background-color: var(--secondary);
-        }
-        
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-        
-        .contact-info {
+        .btn-accent2:hover { background: #1248a0; transform: translateY(-2px); }
+
+        /* Floating stats */
+        .hero-stats {
+            position: absolute;
+            top: 50%;
+            right: 5%;
+            transform: translateY(-50%);
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
+
+        .hero-stat {
+            background: rgba(245,240,232,0.05);
+            border: 1px solid rgba(245,240,232,0.1);
+            border-radius: 4px;
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(8px);
         }
-        
-        .contact-icon {
-            font-size: 1.5rem;
-            color: var(--secondary);
+
+        .hero-stat-num {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.45);
             margin-top: 0.3rem;
         }
-        
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 1rem;
+
+        /* ─── SECTION BASE ─── */
+        section { padding: 7rem 2rem; }
+
+        .container { max-width: 1300px; margin: 0 auto; }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            letter-spacing: 2px;
+            line-height: 0.95;
+            color: var(--ink);
             margin-bottom: 1.5rem;
-            border: none;
-            border-radius: 4px;
-            background-color: rgba(255,255,255,0.1);
-            color: white;
-            font-family: var(--font-main);
         }
-        
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: rgba(255,255,255,0.7);
+
+        .section-intro {
+            color: var(--muted);
+            max-width: 560px;
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.75;
         }
-        
-        /* Actualities Section */
-        .actualities {
-            background-color: white;
+
+        /* ─── MISSION SECTION ─── */
+        .mission {
+            background: var(--ink);
+            color: var(--paper);
+            position: relative;
+            overflow: hidden;
         }
-        
-        .actualities-grid {
+
+        .mission::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(232,101,26,0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .mission .section-title { color: var(--paper); }
+
+        .mission-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .mission-body {
+            color: rgba(245,240,232,0.65);
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .mission-body strong { color: var(--accent); font-weight: 500; }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(245,240,232,0.08);
+            border: 1px solid rgba(245,240,232,0.08);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .stat-block {
+            padding: 2rem 1.5rem;
+            background: rgba(13,17,23,0.6);
+            text-align: center;
+        }
+
+        .stat-block-num {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--accent);
+            line-height: 1;
+            display: block;
+        }
+
+        .stat-block-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.4);
+            margin-top: 0.4rem;
+        }
+
+        .mission-image-wrap {
+            position: relative;
+        }
+
+        .mission-image-wrap img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 4px;
+            filter: grayscale(20%) contrast(1.05);
+        }
+
+        .mission-image-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(232,101,26,0.3) 0%, transparent 60%);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .mission-image-frame {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            right: -1.5rem;
+            bottom: -1.5rem;
+            border: 1px solid rgba(232,101,26,0.3);
+            border-radius: 4px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ─── SERVICES ─── */
+        .services { background: var(--paper); }
+
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
             gap: 2rem;
         }
-        
-        .actuality-card {
-            background-color: white;
-            border-radius: 8px;
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid var(--light-gray);
-            transition: transform 0.3s ease;
         }
-        
-        .actuality-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            transition: background 0.3s ease;
+            position: relative;
         }
-        
-        .actuality-img {
-            height: 200px;
+
+        .service-card:hover { background: var(--ink); }
+
+        .service-card:hover .service-icon { color: var(--accent); }
+        .service-card:hover .service-title { color: var(--paper); }
+        .service-card:hover .service-desc { color: rgba(245,240,232,0.55); }
+
+        .service-num {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon {
+            font-size: 1.8rem;
+            color: var(--ink);
+            margin-bottom: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .service-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            color: var(--ink);
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .service-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            transition: color 0.3s;
+        }
+
+        /* ─── PORTFOLIO ─── */
+        .portfolio { background: #eee9df; }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(13,17,23,0.15);
+        }
+
+        .portfolio-img {
+            height: 230px;
             overflow: hidden;
             position: relative;
         }
-        
+
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            filter: grayscale(15%);
+        }
+
+        .portfolio-item:hover .portfolio-img img { transform: scale(1.07); }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13,17,23,0.7) 0%, transparent 50%);
+        }
+
+        .portfolio-badge {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.8rem;
+            border-radius: 2px;
+            font-weight: 700;
+        }
+
+        .badge-completed { background: #1a6b3a; color: #7fffc4; }
+        .badge-inprogress { background: #7a4a00; color: #ffc96b; }
+        .badge-upcoming { background: #1a3a6b; color: #7ab8ff; }
+
+        .portfolio-body {
+            padding: 1.5rem;
+        }
+
+        .portfolio-body h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--ink);
+        }
+
+        .portfolio-body p { color: var(--muted); font-size: 0.9rem; line-height: 1.65; margin-bottom: 1rem; }
+
+        .portfolio-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+        .ptag {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            padding: 0.25rem 0.6rem;
+            border-radius: 2px;
+            background: var(--paper);
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        /* ─── COURSES ─── */
+        .courses { background: var(--ink); position: relative; overflow: hidden; }
+
+        .courses::before {
+            content: '';
+            position: absolute;
+            bottom: -150px; left: -150px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(26,95,180,0.2), transparent 70%);
+        }
+
+        .courses .section-title { color: var(--paper); }
+        .courses .section-intro { color: rgba(245,240,232,0.5); }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            border: 1px solid rgba(245,240,232,0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            background: rgba(245,240,232,0.03);
+            transition: border-color 0.3s, background 0.3s, transform 0.3s;
+        }
+
+        .course-card:hover {
+            border-color: var(--accent);
+            background: rgba(232,101,26,0.06);
+            transform: translateY(-4px);
+        }
+
+        .course-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(245,240,232,0.07);
+            position: relative;
+        }
+
+        .course-age {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.7rem;
+        }
+
+        .course-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            color: var(--paper);
+            line-height: 1;
+        }
+
+        .course-duration {
+            position: absolute;
+            top: 2rem; right: 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: rgba(245,240,232,0.3);
+            letter-spacing: 1px;
+        }
+
+        .course-body { padding: 2rem; }
+
+        .course-desc {
+            color: rgba(245,240,232,0.5);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .course-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .course-features li {
+            padding: 0.55rem 0;
+            border-bottom: 1px solid rgba(245,240,232,0.05);
+            font-size: 0.88rem;
+            color: rgba(245,240,232,0.6);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .course-features li::before {
+            content: '→';
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .course-features li:last-child { border-bottom: none; }
+
+        /* ─── ACTUALITIES ─── */
+        .actualities { background: var(--paper); }
+
+        .actualities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .actuality-card {
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .actuality-card:hover {
+            box-shadow: 0 12px 40px rgba(13,17,23,0.12);
+            transform: translateY(-3px);
+        }
+
+        .actuality-img {
+            position: relative;
+            overflow: hidden;
+        }
+
         .actuality-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: grayscale(20%);
+            transition: transform 0.5s, filter 0.3s;
         }
-        
-        .actuality-status {
+
+        .actuality-card:hover .actuality-img img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .actuality-status-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            bottom: 0.8rem; left: 0.8rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            padding: 0.3rem 0.6rem;
+            border-radius: 2px;
+            font-weight: 700;
         }
-        
-        .status-in-progress {
-            background-color: var(--warning);
-            color: #000;
-        }
-        
-        .status-completed {
-            background-color: var(--success);
-            color: white;
-        }
-        
-        .status-upcoming {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .actuality-content {
-            padding: 1.5rem;
-        }
-        
-        .actuality-date {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+
+        .actuality-body { padding: 1.8rem; }
+
+        .actuality-meta {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
         }
-        
-        .actuality-content h3 {
+
+        .actuality-date {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: var(--muted);
+        }
+
+        .actuality-title {
+            font-family: var(--font-display);
             font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--primary-dark);
+            letter-spacing: 0.5px;
+            color: var(--ink);
+            margin-bottom: 0.7rem;
+            line-height: 1.2;
         }
-        
-        .actuality-progress {
-            margin: 1rem 0;
+
+        .actuality-text {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
         }
-        
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background-color: var(--light-gray);
-            border-radius: 4px;
+
+        .progress-track {
+            background: var(--paper);
+            border-radius: 2px;
+            height: 4px;
             overflow: hidden;
+            margin-bottom: 0.4rem;
         }
-        
+
         .progress-fill {
             height: 100%;
-            background-color: var(--secondary);
-            border-radius: 4px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+            transition: width 1s ease;
         }
-        
-        /* WhatsApp Floating Button */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 40px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 1000;
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 1px;
+            color: var(--muted);
+        }
+
+        /* ─── ABOUT ─── */
+        .about { background: #eee9df; }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .about-image-wrap {
+            position: sticky;
+            top: 100px;
+        }
+
+        .about-image-wrap img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 4px;
+            filter: grayscale(10%) contrast(1.05);
+        }
+
+        .about-image-caption {
+            margin-top: 1.2rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .about-text .section-title { margin-bottom: 1.5rem; }
+
+        .about-lead {
+            font-size: 1.15rem;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-body {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .skills-section h3 {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-row {
+            margin-bottom: 1.2rem;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+        }
+
+        .skill-name { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
+
+        .skill-pct {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        .skill-track {
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent2), var(--accent));
+            border-radius: 2px;
+            transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        /* ─── CONTACT ─── */
+        .contact { background: var(--ink); position: relative; overflow: hidden; }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -100px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(232,101,26,0.1), transparent 70%);
+        }
+
+        .contact .section-title { color: var(--paper); }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .contact-info { position: sticky; top: 100px; }
+
+        .contact-intro {
+            color: rgba(245,240,232,0.55);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(245,240,232,0.07);
+        }
+
+        .contact-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+        .contact-icon-wrap {
+            width: 42px;
+            height: 42px;
+            background: rgba(232,101,26,0.15);
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            color: var(--accent);
+            font-size: 1rem;
+            flex-shrink: 0;
         }
-        
-        .whatsapp-float:hover {
-            background-color: #128C7E;
-            transform: scale(1.1);
-            box-shadow: 3px 3px 10px #999;
+
+        .contact-item-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.3);
+            margin-bottom: 0.3rem;
         }
-        
-        .whatsapp-text {
-            position: fixed;
-            bottom: 100px;
-            right: 40px;
-            background: #25d366;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            white-space: nowrap;
+
+        .contact-item-value {
+            color: rgba(245,240,232,0.75);
+            font-size: 0.95rem;
         }
-        
-        .whatsapp-float:hover + .whatsapp-text {
-            opacity: 1;
+
+        .contact-item-value a {
+            color: var(--accent);
+            text-decoration: none;
         }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 1.5rem;
-            text-align: center;
+
+        .contact-form-wrap {
+            background: rgba(245,240,232,0.03);
+            border: 1px solid rgba(245,240,232,0.08);
+            border-radius: 6px;
+            padding: 2.5rem;
         }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            text-align: left;
-        }
-        
-        .footer-logo {
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
             margin-bottom: 1rem;
         }
-        
-        .footer-links h3,
-        .footer-newsletter h3 {
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-field label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.4);
+        }
+
+        .form-field input,
+        .form-field textarea,
+        .form-field select {
+            background: rgba(245,240,232,0.05);
+            border: 1px solid rgba(245,240,232,0.1);
+            border-radius: 3px;
+            padding: 0.85rem 1rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--paper);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus,
+        .form-field select:focus {
+            border-color: var(--accent);
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: rgba(245,240,232,0.2);
+        }
+
+        .form-field select option { background: #1a1f27; }
+
+        .form-field textarea { min-height: 120px; resize: vertical; }
+
+        /* ─── WHATSAPP ─── */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            width: 56px;
+            height: 56px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             color: white;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
+            text-decoration: none;
+            z-index: 500;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        
-        .footer-links h3:after,
-        .footer-newsletter h3:after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 2px;
-            background-color: var(--secondary);
-            bottom: 0;
-            left: 0;
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37,211,102,0.6);
         }
-        
-        .footer-links ul {
-            list-style: none;
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #080b10;
+            color: rgba(245,240,232,0.5);
+            padding: 4rem 2rem 2rem;
         }
-        
-        .footer-links li {
+
+        .footer-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(245,240,232,0.06);
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand .footer-logo-text {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: var(--paper);
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand .footer-logo-text em { color: var(--accent); font-style: normal; }
+
+        .footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 280px; }
+
+        .footer-socials {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(245,240,232,0.1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(245,240,232,0.4);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.6);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul { list-style: none; }
+
+        .footer-col li { margin-bottom: 0.7rem; }
+
+        .footer-col a {
+            color: rgba(245,240,232,0.4);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: var(--accent); }
+
+        .newsletter-row {
+            display: flex;
+            gap: 0;
+        }
+
+        .newsletter-row input {
+            flex: 1;
+            background: rgba(245,240,232,0.05);
+            border: 1px solid rgba(245,240,232,0.1);
+            border-right: none;
+            border-radius: 3px 0 0 3px;
+            padding: 0.7rem 1rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--paper);
+            outline: none;
+        }
+
+        .newsletter-row input::placeholder { color: rgba(245,240,232,0.2); }
+
+        .newsletter-row button {
+            background: var(--accent);
+            border: none;
+            border-radius: 0 3px 3px 0;
+            padding: 0 1rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .newsletter-row button:hover { background: #cf5515; }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            color: rgba(245,240,232,0.25);
+        }
+
+        /* ─── ADMIN PANEL ─── */
+        .admin-panel {
+            position: fixed;
+            top: 0; right: -480px;
+            width: 480px;
+            height: 100vh;
+            background: var(--ink);
+            border-left: 1px solid rgba(245,240,232,0.08);
+            z-index: 2000;
+            transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+            overflow-y: auto;
+            padding: 2.5rem;
+            color: var(--paper);
+        }
+
+        .admin-panel.active { right: 0; }
+
+        .admin-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13,17,23,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1999;
+        }
+
+        .admin-overlay.active { display: block; }
+
+        .admin-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(245,240,232,0.08);
+        }
+
+        .admin-panel-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+        }
+
+        .admin-close-btn {
+            background: rgba(245,240,232,0.05);
+            border: 1px solid rgba(245,240,232,0.1);
+            color: var(--paper);
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .admin-close-btn:hover { background: rgba(232,101,26,0.2); border-color: var(--accent); }
+
+        .admin-section { margin-bottom: 3rem; }
+
+        .admin-section-title {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .admin-form-group {
+            margin-bottom: 1rem;
+        }
+
+        .admin-form-group label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.4);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .admin-form-group input,
+        .admin-form-group textarea,
+        .admin-form-group select {
+            width: 100%;
+            background: rgba(245,240,232,0.05);
+            border: 1px solid rgba(245,240,232,0.1);
+            border-radius: 3px;
+            padding: 0.7rem 0.9rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--paper);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .admin-form-group input:focus,
+        .admin-form-group textarea:focus { border-color: var(--accent); }
+
+        .admin-form-group textarea { min-height: 80px; resize: vertical; }
+        .admin-form-group select option { background: #1a1f27; }
+
+        .admin-item-list {
+            max-height: 260px;
+            overflow-y: auto;
+        }
+
+        .admin-item {
+            background: rgba(245,240,232,0.03);
+            border: 1px solid rgba(245,240,232,0.06);
+            border-radius: 4px;
+            padding: 1rem;
             margin-bottom: 0.8rem;
         }
-        
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--secondary);
-        }
-        
-        .footer-newsletter p {
-            margin-bottom: 1rem;
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .newsletter-form {
+
+        .admin-item-top {
             display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
-        
-        .newsletter-form input {
-            flex-grow: 1;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 4px 0 0 4px;
+
+        .admin-item-name {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--paper);
+            margin-bottom: 0.3rem;
         }
-        
-        .newsletter-form button {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 0 1.5rem;
-            border-radius: 0 4px 4px 0;
+
+        .admin-item-meta {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 1px;
+            color: rgba(245,240,232,0.3);
+        }
+
+        .btn-delete {
+            background: rgba(220,53,69,0.15);
+            border: 1px solid rgba(220,53,69,0.3);
+            color: #ff6b7a;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
             cursor: pointer;
+            font-size: 0.75rem;
+            transition: background 0.2s;
+            flex-shrink: 0;
         }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
+
+        .btn-delete:hover { background: rgba(220,53,69,0.3); }
+
+        /* ─── LOGIN MODAL ─── */
+        .login-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(13,17,23,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
         }
-        
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .mission-content,
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-            
-            .mission-text h2,
-            .about-text h2 {
-                text-align: center;
-            }
-            
-            .mission-text h2:after,
-            .about-text h2:after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            .admin-panel {
-                width: 100%;
-                right: -100%;
-            }
+
+        .login-modal.active { display: flex; }
+
+        .login-box {
+            background: var(--ink);
+            border: 1px solid rgba(245,240,232,0.1);
+            border-radius: 8px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 420px;
         }
-        
+
+        .login-box-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: var(--paper);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-box-sub {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2.5rem;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-up {
+            opacity: 0;
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.15s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.45s; }
+        .delay-4 { animation-delay: 0.6s; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .services-grid,
+            .portfolio-grid,
+            .courses-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-stats { display: none; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.8rem;
-            }
-            
-            .hero {
-                padding: 9rem 1.5rem 5rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background-color: white;
+            nav ul { display: none; }
+            nav ul.active {
+                display: flex;
                 flex-direction: column;
-                align-items: center;
-                padding: 2rem 0;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: all 0.3s ease;
+                position: fixed;
+                top: 72px; left: 0; right: 0;
+                background: rgba(245,240,232,0.97);
+                backdrop-filter: blur(12px);
+                padding: 2rem;
+                border-bottom: 1px solid var(--border);
+                gap: 1.5rem;
                 z-index: 999;
             }
-            
-            .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            .nav-links li {
-                margin: 1rem 0;
-            }
-            
-            .mission-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                bottom: 20px;
-                right: 20px;
-                font-size: 25px;
-            }
-            
-            .whatsapp-text {
-                bottom: 80px;
-                right: 20px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            section {
-                padding: 3rem 1rem;
-            }
-            
-            .hero {
-                padding: 8rem 1rem 4rem;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .login-box {
-                padding: 2rem 1.5rem;
-            }
-            
-            .whatsapp-float {
-                width: 45px;
-                height: 45px;
-                bottom: 15px;
-                right: 15px;
-                font-size: 22px;
-            }
+            nav ul.active a { font-size: 0.85rem; }
+            .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+            .mission-layout,
+            .about-layout,
+            .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .about-image-wrap { position: static; }
+            .services-grid,
+            .portfolio-grid,
+            .courses-grid,
+            .actualities-grid { grid-template-columns: 1fr; }
+            .actuality-card { grid-template-columns: 1fr; }
+            .actuality-img { height: 200px; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+            .form-row { grid-template-columns: 1fr; }
+            .admin-panel { width: 100%; right: -100%; }
+            .hero-title { font-size: 3.5rem; }
+            section { padding: 4rem 1.5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/22651881725?text=Hello%20Koulé%20Ingenium!%20I'm%20interested%20in%20your%20services" 
-       class="whatsapp-float" 
-       target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    <div class="whatsapp-text">Contact us on WhatsApp</div>
-    <!-- Header & Navigation -->
-    <header>
-        <nav class="navbar container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
-                <div class="logo-text">
-                    <span>Koulé</span> <span>Ingenium</span>
-                </div>
-            </a>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#mission">Mission</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#courses">Courses</a></li>
-                <li><a href="#actualities">News & Projects</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-                
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Koulé Ingenium: Where Building Arts Meet Science & Tools</h1>
-            <p>Bridging educational inequality in robotics, AI, and Python for children in Burkina Faso and beyond. Based in Ouagadougou, we empower young minds through mechanical engineering, robotics, and coding education.</p>
-            <div class="hero-btns">
-                <a href="#courses" class="btn">Explore Courses</a>
-                <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
-                <a href="#actualities" class="btn">See Projects in Progress</a>
-            </div>
+<!-- WhatsApp -->
+<a href="https://wa.me/22651881725?text=Hello%20Koulé%20Ingenium!%20I'm%20interested%20in%20your%20services" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Header -->
+<header>
+    <nav class="navbar">
+        <a href="#home" class="logo">
+            <div class="logo-mark">KI</div>
+            <div class="logo-text"><em>Koulé</em> Ingenium</div>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#actualities">News</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact" class="nav-cta">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-circuit"></div>
+
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="hero-stat-num">250+</div>
+            <div class="hero-stat-label">Students</div>
         </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section class="mission" id="mission">
-        <div class="container">
-            <div class="mission-content">
-                <div class="mission-text">
-                    <h2>Our Mission</h2>
-                    <p>Koulé Ingenium combines <strong>Koulé</strong> (the arts of building) with <strong>Ingenium</strong> (the science and tools needed for that). We believe every child, regardless of background, deserves access to quality education in emerging technologies.</p>
-                    <p>Based in Ouagadougou, we provide robotics, AI, and Python courses to children from both stable and unstable backgrounds, creating equal educational opportunities for the next generation of African innovators.</p>
-                    
-                    <div class="mission-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">250+</div>
-                            <div class="stat-label">Students Trained</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">20+</div>
-                            <div class="stat-label">Projects Completed</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">4</div>
-                            <div class="stat-label">Years of Impact</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mission-image">
-                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Children learning robotics in Ouagadougou">
-                </div>
-            </div>
+        <div class="hero-stat">
+            <div class="hero-stat-num">20+</div>
+            <div class="hero-stat-label">Projects</div>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <h2>Our Services</h2>
-            <p class="section-subtitle">From digital marketing solutions to hands-on educational programs, we offer comprehensive services that bridge technology and education.</p>
-            
-            <div class="services-grid" id="servicesContainer">
-                <!-- Services will be loaded here dynamically -->
-            </div>
+        <div class="hero-stat">
+            <div class="hero-stat-num">4</div>
+            <div class="hero-stat-label">Years</div>
         </div>
-    </section>
+    </div>
 
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <h2>Our Completed Projects</h2>
-            <p class="section-subtitle">A showcase of our mechanical engineering, robotics, AI, and educational projects successfully developed in Ouagadougou.</p>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Robotic Arm Project">
+    <div class="container">
+        <div class="hero-tag fade-up">Ouagadougou, Burkina Faso — Est. 2020</div>
+        <h1 class="hero-title fade-up delay-1">
+            WHERE<br>BUILDING<br><span class="accent">ARTS MEET</span><br>SCIENCE
+        </h1>
+        <p class="hero-subtitle fade-up delay-2">
+            Bridging educational inequality in robotics, AI, and Python for children in Burkina Faso and beyond. Empowering the next generation of African innovators.
+        </p>
+        <div class="hero-actions fade-up delay-3">
+            <a href="#courses" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Explore Courses</a>
+            <a href="#portfolio" class="btn btn-outline"><i class="fas fa-folder-open"></i> View Portfolio</a>
+            <a href="#actualities" class="btn btn-outline"><i class="fas fa-satellite-dish"></i> Live Projects</a>
+        </div>
+    </div>
+</section>
+
+<!-- Mission -->
+<section class="mission" id="mission">
+    <div class="container">
+        <div class="mission-layout">
+            <div class="mission-text">
+                <div class="section-label">Who We Are</div>
+                <h2 class="section-title">OUR<br>MISSION</h2>
+                <p class="mission-body">
+                    <strong>Koulé</strong> — the arts of building — meets <strong>Ingenium</strong> — the science and tools needed for that. We believe every child, regardless of background, deserves access to quality education in emerging technologies.
+                </p>
+                <p class="mission-body">
+                    Based in Ouagadougou, we provide <strong>robotics, AI, and Python</strong> courses to children from both stable and unstable backgrounds, creating equal educational opportunities for the next generation of African innovators.
+                </p>
+                <div class="stats-row">
+                    <div class="stat-block">
+                        <span class="stat-block-num">250+</span>
+                        <div class="stat-block-label">Students Trained</div>
                     </div>
-                    <div class="portfolio-info">
-                        <h3>Educational automated truck</h3>
-                        <p>Low-cost automated truck designed for teaching robotics and mechanical concepts to students, controlled via Arduino and Python.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag completed">Completed</span>
-                            <span class="tag">Robotics</span>
-                            <span class="tag">Arduino</span>
-                        </div>
+                    <div class="stat-block">
+                        <span class="stat-block-num">20+</span>
+                        <div class="stat-block-label">Projects</div>
                     </div>
-                </div>
-                
-                <div class="portfolio-item">
-                    <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CAD Design Project">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>CAD Training Platform</h3>
-                        <p>Interactive platform for teaching Computer-Aided Design to students with limited resources.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag completed">Completed</span>
-                            <span class="tag">CAD</span>
-                            <span class="tag">Education</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item">
-                    <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI Learning Kit">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>AI Learning Kit for Kids</h3>
-                        <p>Hands-on kit that introduces machine learning concepts to children through interactive projects.</p>
-                        <div class="portfolio-tags">
-                            <span class="tag completed">Completed</span>
-                            <span class="tag">AI/ML</span>
-                            <span class="tag">Python</span>
-                        </div>
+                    <div class="stat-block">
+                        <span class="stat-block-num">4</span>
+                        <div class="stat-block-label">Years Impact</div>
                     </div>
                 </div>
             </div>
+            <div class="mission-image-wrap">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Children learning robotics">
+                <div class="mission-image-frame"></div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Courses Section -->
-    <section class="courses" id="courses">
-        <div class="container">
-            <h2>Our Courses</h2>
-            <p class="section-subtitle">Comprehensive educational programs designed to make robotics, AI, and programming accessible to all children in Burkina Faso.</p>
-            
-            <div class="courses-grid">
-                <div class="course-card">
-                    <div class="course-header">
-                        <h3>Robotics Fundamentals</h3>
-                        <p>For Beginners (Ages 10-16)</p>
-                    </div>
-                    <div class="course-body">
-                        <p>Introduction to robotics concepts, basic electronics, and Arduino programming through hands-on projects.</p>
-                        <ul class="course-features">
-                            <li><i class="fas fa-check"></i> 12-week program</li>
-                            <li><i class="fas fa-check"></i> Build 3 robotic projects</li>
-                            <li><i class="fas fa-check"></i> Learn Arduino basics</li>
-                            <li><i class="fas fa-check"></i> No prior experience needed</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; text-align: center;">Enroll Now</a>
+<!-- Services -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="services-header">
+            <div>
+                <div class="section-label">What We Offer</div>
+                <h2 class="section-title">OUR<br>SERVICES</h2>
+            </div>
+            <p class="section-intro">From digital marketing solutions to hands-on educational programs bridging technology and education across West Africa.</p>
+        </div>
+        <div class="services-grid" id="servicesContainer"></div>
+    </div>
+</section>
+
+<!-- Portfolio -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+        <div class="services-header">
+            <div>
+                <div class="section-label">Our Work</div>
+                <h2 class="section-title">COMPLETED<br>PROJECTS</h2>
+            </div>
+            <p class="section-intro">A showcase of our mechanical engineering, robotics, AI, and educational projects developed in Ouagadougou.</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Automated Truck">
+                    <div class="portfolio-overlay"></div>
+                    <span class="portfolio-badge badge-completed">Completed</span>
+                </div>
+                <div class="portfolio-body">
+                    <h3>Educational Automated Truck</h3>
+                    <p>Low-cost automated truck designed for teaching robotics and mechanical concepts to students, controlled via Arduino and Python.</p>
+                    <div class="portfolio-tags">
+                        <span class="ptag">Robotics</span>
+                        <span class="ptag">Arduino</span>
+                        <span class="ptag">Python</span>
                     </div>
                 </div>
-                
-                <div class="course-card">
-                    <div class="course-header">
-                        <h3>Python Programming</h3>
-                        <p>For Teens (Ages 14-18)</p>
-                    </div>
-                    <div class="course-body">
-                        <p>Comprehensive Python programming course focusing on problem-solving, automation, and basic AI concepts.</p>
-                        <ul class="course-features">
-                            <li><i class="fas fa-check"></i> 16-week program</li>
-                            <li><i class="fas fa-check"></i> Build real-world applications</li>
-                            <li><i class="fas fa-check"></i> Introduction to AI with Python</li>
-                            <li><i class="fas fa-check"></i> Certificate upon completion</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; text-align: center;">Enroll Now</a>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="CAD Platform">
+                    <div class="portfolio-overlay"></div>
+                    <span class="portfolio-badge badge-completed">Completed</span>
+                </div>
+                <div class="portfolio-body">
+                    <h3>CAD Training Platform</h3>
+                    <p>Interactive platform for teaching Computer-Aided Design to students with limited access to resources.</p>
+                    <div class="portfolio-tags">
+                        <span class="ptag">CAD</span>
+                        <span class="ptag">Education</span>
+                        <span class="ptag">Design</span>
                     </div>
                 </div>
-                
-                <div class="course-card">
-                    <div class="course-header">
-                        <h3>CAD & Mechanical Design</h3>
-                        <p>For Advanced Students</p>
-                    </div>
-                    <div class="course-body">
-                        <p>Learn mechanical engineering principles and CAD software to design and prototype your own creations.</p>
-                        <ul class="course-features">
-                            <li><i class="fas fa-check"></i> 10-week program</li>
-                            <li><i class="fas fa-check"></i> Master CAD software basics</li>
-                            <li><i class="fas fa-check"></i> Design & 3D print your models</li>
-                            <li><i class="fas fa-check"></i> Understand mechanical systems</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%; text-align: center;">Enroll Now</a>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI Learning Kit">
+                    <div class="portfolio-overlay"></div>
+                    <span class="portfolio-badge badge-completed">Completed</span>
+                </div>
+                <div class="portfolio-body">
+                    <h3>AI Learning Kit for Kids</h3>
+                    <p>Hands-on kit introducing machine learning concepts to children through interactive, guided projects.</p>
+                    <div class="portfolio-tags">
+                        <span class="ptag">AI/ML</span>
+                        <span class="ptag">Python</span>
+                        <span class="ptag">Kids</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Actualities Section -->
-    <section class="actualities" id="actualities">
-        <div class="container">
-            <h2>Latest News & Projects in Progress</h2>
-            <p class="section-subtitle">Stay updated with our ongoing projects, upcoming courses, and current initiatives in Ouagadougou.</p>
-            
-            <div class="actualities-grid" id="actualitiesContainer">
-                <!-- News/Actualities will be loaded here dynamically -->
+<!-- Courses -->
+<section class="courses" id="courses">
+    <div class="container">
+        <div class="services-header" style="margin-bottom:4rem;">
+            <div>
+                <div class="section-label">Learn With Us</div>
+                <h2 class="section-title">OUR<br>COURSES</h2>
             </div>
+            <p class="section-intro">Comprehensive educational programs designed to make robotics, AI, and programming accessible to all children in Burkina Faso.</p>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>About Me</h2>
-                    <p>I am <strong>Berthe Fadel</strong>, a Mechanical Engineer based in Ouagadougou with expertise in CAD design, robotics, AI, and Python programming. My passion is leveraging technology to create educational equality for children in Burkina Faso and across Africa.</p>
-                    
-                    <p>Through Koulé Ingenium, I combine my technical skills in mechanical engineering and programming with my commitment to social impact, creating a platform where children from all backgrounds can access cutting-edge technology education.</p>
-                    
-                    <div class="skills-list">
-                        <h3>My Skills</h3>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>CAD Design & Conception</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Robotics & Automation</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>AI & Machine Learning</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Python Programming</span>
-                                <span>92%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 92%"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Arduino & Electronics</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-level" style="width: 88%"></div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-age">Ages 10–16 · Beginner</div>
+                    <div class="course-name">Robotics Fundamentals</div>
+                    <div class="course-duration">12 Weeks</div>
                 </div>
-                
-                <div class="mission-image">
-                    <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Berthe Fadel - Mechanical Engineer in Ouagadougou">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2>Contact Us</h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Get in touch to enroll in courses, discuss partnerships, or learn more about our educational equality initiatives.</p>
-            
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <h3>Contact Person</h3>
-                            <p>Berthe Fadel</p>
-                            <p>Founder & Mechanical Engineer</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h3>Phone / WhatsApp</h3>
-                            <p>+226 51 88 17 25</p>
-                            <p><a href="https://wa.me/22651881725" style="color: #25d366; text-decoration: none;">
-                                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-                            </a></p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h3>Email Address</h3>
-                            <p>fadelberthe24@gmail.com</p>
-                            <p>contact@kouleingenium.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h3>Our Location</h3>
-                            <p>Ouagadougou, Burkina Faso</p>
-                            <p>West Africa</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <h3>Working Hours</h3>
-                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                            <p>Saturday: 9:00 AM - 1:00 PM</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="tel" placeholder="Your Phone Number">
-                        <textarea rows="6" placeholder="Your Message" required></textarea>
-                        <button type="submit" class="btn" style="width: 100%;">
-                            <i class="fas fa-paper-plane"></i> Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">Koulé Ingenium</div>
-                    <p>Bridging educational inequality through robotics, AI, and Python education in Burkina Faso and across Africa.</p>
-                    <div style="margin-top: 1.5rem;">
-                        <a href="https://wa.me/22651881725" style="color: #25d366; margin-right: 1rem; font-size: 1.5rem;" title="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="mailto:fadelberthe24@gmail.com" style="color: white; margin-right: 1rem; font-size: 1.5rem;" title="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="tel:+22651881725" style="color: white; margin-right: 1rem; font-size: 1.5rem;" title="Call">
-                            <i class="fas fa-phone"></i>
-                        </a>
-                        <a href="#" style="color: white; font-size: 1.5rem;" title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#mission">Our Mission</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#portfolio">Completed Projects</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#actualities">Projects in Progress</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                <div class="course-body">
+                    <p class="course-desc">Introduction to robotics concepts, basic electronics, and Arduino programming through hands-on projects.</p>
+                    <ul class="course-features">
+                        <li>Build 3 robotic projects</li>
+                        <li>Learn Arduino basics</li>
+                        <li>Electronics fundamentals</li>
+                        <li>No prior experience needed</li>
                     </ul>
-                </div>
-                
-                <div class="footer-newsletter">
-                    <h3>Stay Updated</h3>
-                    <p>Subscribe to our newsletter for updates on new courses, projects, and educational initiatives.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your Email" required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                    <p style="margin-top: 1rem; font-size: 0.9rem;">
-                        <i class="fas fa-info-circle"></i> We respect your privacy. No spam.
-                    </p>
+                    <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Enroll Now</a>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; 2024 Koulé Ingenium. All Rights Reserved. | Based in Ouagadougou, Burkina Faso</p>
-                <p>Contact: +226 51 88 17 25 | Email: fadelberthe24@gmail.com</p>
-                <p>Koulé: The arts of building | Ingenium: The science and tools needed for that</p>
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-age">Ages 14–18 · Intermediate</div>
+                    <div class="course-name">Python Programming</div>
+                    <div class="course-duration">16 Weeks</div>
+                </div>
+                <div class="course-body">
+                    <p class="course-desc">Comprehensive Python programming focusing on problem-solving, automation, and basic AI concepts.</p>
+                    <ul class="course-features">
+                        <li>Build real-world applications</li>
+                        <li>Introduction to AI with Python</li>
+                        <li>Problem-solving methodology</li>
+                        <li>Certificate upon completion</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Enroll Now</a>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-age">Advanced Students</div>
+                    <div class="course-name">CAD & Mechanical Design</div>
+                    <div class="course-duration">10 Weeks</div>
+                </div>
+                <div class="course-body">
+                    <p class="course-desc">Learn mechanical engineering principles and CAD software to design and prototype your own creations.</p>
+                    <ul class="course-features">
+                        <li>Master CAD software basics</li>
+                        <li>Design & 3D print models</li>
+                        <li>Mechanical systems theory</li>
+                        <li>Portfolio project at end</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Enroll Now</a>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <script>
-        // Admin credentials (in production, this should be on a backend server)
-        const ADMIN_CREDENTIALS = {
-            username: 'admin',
-            password: 'koule123' // Change this to your preferred password
-        };
+<!-- Actualities / News -->
+<section class="actualities" id="actualities">
+    <div class="container">
+        <div class="services-header" style="margin-bottom:4rem;">
+            <div>
+                <div class="section-label">Stay Updated</div>
+                <h2 class="section-title">NEWS &<br>PROJECTS</h2>
+            </div>
+            <p class="section-intro">Ongoing projects, upcoming courses, and current initiatives happening in Ouagadougou.</p>
+        </div>
+        <div class="actualities-grid" id="actualitiesContainer"></div>
+    </div>
+</section>
 
-        // Data storage (using localStorage for demo)
-        let services = JSON.parse(localStorage.getItem('koule_services')) || [
-            { 
-                id: 1, 
-                icon: "fas fa-chalkboard-teacher", 
-                title: "Robotics & AI Courses", 
-                description: "Comprehensive courses for kids and teens covering robotics fundamentals, AI concepts, and practical applications using Arduino and Python. Based in Ouagadougou, Burkina Faso." 
-            },
-            { 
-                id: 2, 
-                icon: "fas fa-laptop-code", 
-                title: "Python Programming", 
-                description: "Beginner to advanced Python programming courses tailored for young learners in Burkina Faso, focusing on practical projects and real-world applications." 
-            },
-            { 
-                id: 3, 
-                icon: "fas fa-cube", 
-                title: "CAD Design & Engineering", 
-                description: "Mechanical engineering and CAD design instruction in Ouagadougou, teaching students how to design, prototype, and build their own mechanical creations." 
-            },
-            { 
-                id: 4, 
-                icon: "fas fa-bullhorn", 
-                title: "Digital Marketing Solutions", 
-                description: "Professional digital marketing services for businesses in Burkina Faso, including web development, SEO, content creation, and brand strategy." 
-            },
-            { 
-                id: 5, 
-                icon: "fas fa-hands-helping", 
-                title: "Educational Equity Programs", 
-                description: "Scholarships and specialized programs for children from underprivileged backgrounds in Burkina Faso to ensure equal access to technology education." 
-            },
-            { 
-                id: 6, 
-                icon: "fas fa-project-diagram", 
-                title: "Custom Project Development", 
-                description: "Design and development of custom robotics, AI, and mechanical engineering projects for educational and commercial applications in West Africa." 
-            }
-        ];
-
-        let actualities = JSON.parse(localStorage.getItem('koule_actualities')) || [
-            { 
-                id: 1, 
-                title: "New Robotics Lab in Progress - Ouagadougou", 
-                date: "2025-09-15", 
-                content: "We're excited to announce that our new robotics lab is currently being set up in Ouagadougou! The lab is in the under construction phase and will soon be equipped with the latest technology for our students. We're currently sourcing 3D printers, Arduino kits, robotics equipment, and computers. This state-of-the-art facility will serve as a hub for innovation and hands-on learning for children across Burkina Faso.",
-                image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                status: "in-progress",
-                progress: 40
-            },
-            { 
-                id: 2, 
-                title: "Summer Camp 2026 - Planning Phase", 
-                date: "2026-05-10", 
-                content: "We're currently planning our annual summer camp for 2026! The program will train over 50 children in robotics and programming basics. We're developing new curriculum materials and securing partnerships for equipment. Scholarships will be available for underprivileged students.",
-                image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                status: "in-progress",
-                progress: 40
-            },
-            { 
-                id: 3, 
-                title: "Mobile Robotics Workshop - Coming Soon", 
-                date: "2026-10-01", 
-                content: "We're developing a mobile robotics workshop that will travel to rural areas of Burkina Faso. This initiative aims to bring robotics education to children who cannot travel to Ouagadougou. The mobile unit will be equipped with basic robotics kits and will conduct 2-day workshops in different regions.",
-                image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                status: "upcoming",
-                progress: 15
-            },
-            { 
-                id: 4, 
-                title: "Partnership with Local Schools in Burkina Faso", 
-                date: "2025-11-01", 
-                content: "We've successfully partnered with 2 local schools in Ouagadougou to integrate robotics into their regular curriculum starting next semester. This will reach 200+ additional students. Teacher training sessions are currently underway.",
-                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                status: "completed",
-                progress: 100
-            }
-        ];
-
-        // Initialize data
-        function initData() {
-            localStorage.setItem('koule_services', JSON.stringify(services));
-            localStorage.setItem('koule_actualities', JSON.stringify(actualities));
-            renderServices();
-            renderActualities();
-            renderAdminServices();
-            renderAdminActualities();
-        }
-
-        // Render services on main page
-        function renderServices() {
-            const container = document.getElementById('servicesContainer');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            services.forEach(service => {
-                const card = document.createElement('div');
-                card.className = 'service-card';
-                card.innerHTML = `
-                    <div class="service-icon">
-                        <i class="${service.icon}"></i>
+<!-- About -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="about-layout">
+            <div class="about-image-wrap">
+                <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Berthe Fadel - Mechanical Engineer">
+                <div class="about-image-caption">Berthe Fadel · Mechanical Engineer · Ouagadougou</div>
+            </div>
+            <div class="about-text">
+                <div class="section-label">The Founder</div>
+                <h2 class="section-title">ABOUT<br>ME</h2>
+                <p class="about-lead">I am <strong>Berthe Fadel</strong>, a Mechanical Engineer based in Ouagadougou with expertise in CAD design, robotics, AI, and Python programming.</p>
+                <p class="about-body">Through Koulé Ingenium, I combine my technical skills in mechanical engineering and programming with my commitment to social impact — creating a platform where children from all backgrounds can access cutting-edge technology education. My passion is leveraging technology to create educational equality for children in Burkina Faso and across Africa.</p>
+                <div class="skills-section">
+                    <h3>Technical Expertise</h3>
+                    <div class="skill-row">
+                        <div class="skill-info"><span class="skill-name">CAD Design & Conception</span><span class="skill-pct">95%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="width:95%"></div></div>
                     </div>
-                    <h3>${service.title}</h3>
-                    <p>${service.description}</p>
-                `;
-                container.appendChild(card);
-            });
-        }
+                    <div class="skill-row">
+                        <div class="skill-info"><span class="skill-name">Robotics & Automation</span><span class="skill-pct">90%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span class="skill-name">AI & Machine Learning</span><span class="skill-pct">85%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span class="skill-name">Python Programming</span><span class="skill-pct">92%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="width:92%"></div></div>
+                    </div>
+                    <div class="skill-row">
+                        <div class="skill-info"><span class="skill-name">Arduino & Electronics</span><span class="skill-pct">88%</span></div>
+                        <div class="skill-track"><div class="skill-fill" style="width:88%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        // Render actualities on main page
-        function renderActualities() {
-            const container = document.getElementById('actualitiesContainer');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            // Sort by date (newest first)
-            const sortedActualities = [...actualities].sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            sortedActualities.forEach(actuality => {
-                const statusClass = `status-${actuality.status}`;
-                const statusText = actuality.status === 'in-progress' ? 'In Progress' : 
-                                  actuality.status === 'completed' ? 'Completed' : 'Upcoming';
-                
-                const card = document.createElement('div');
-                card.className = 'actuality-card';
-                
-                let progressHTML = '';
-                if (actuality.status === 'in-progress' && actuality.progress) {
-                    progressHTML = `
-                        <div class="actuality-progress">
-                            <div class="progress-label">
-                                <span>Project Progress</span>
-                                <span>${actuality.progress}%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: ${actuality.progress}%"></div>
-                            </div>
+<!-- Contact -->
+<section class="contact" id="contact">
+    <div class="container">
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-title" style="color:var(--paper);margin-bottom:4rem;">LET'S<br>CONNECT</h2>
+        <div class="contact-layout">
+            <div class="contact-info">
+                <p class="contact-intro">Get in touch to enroll in courses, discuss partnerships, or learn more about our educational equality initiatives in Burkina Faso.</p>
+                <div class="contact-item">
+                    <div class="contact-icon-wrap"><i class="fas fa-user"></i></div>
+                    <div>
+                        <div class="contact-item-label">Contact Person</div>
+                        <div class="contact-item-value">Berthe Fadel<br><small style="opacity:0.6">Founder & Mechanical Engineer</small></div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-wrap"><i class="fab fa-whatsapp"></i></div>
+                    <div>
+                        <div class="contact-item-label">Phone / WhatsApp</div>
+                        <div class="contact-item-value">
+                            +226 51 88 17 25<br>
+                            <a href="https://wa.me/22651881725" target="_blank">Chat on WhatsApp →</a>
                         </div>
-                    `;
-                }
-                
-                card.innerHTML = `
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-wrap"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div class="contact-item-label">Email</div>
+                        <div class="contact-item-value">
+                            <a href="mailto:fadelberthe24@gmail.com">fadelberthe24@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-wrap"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <div class="contact-item-label">Location</div>
+                        <div class="contact-item-value">Ouagadougou, Burkina Faso<br><small style="opacity:0.6">West Africa</small></div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon-wrap"><i class="fas fa-clock"></i></div>
+                    <div>
+                        <div class="contact-item-label">Hours</div>
+                        <div class="contact-item-value">Mon–Fri: 8:00 AM – 6:00 PM<br>Sat: 9:00 AM – 1:00 PM</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrap">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Your Name</label>
+                            <input type="text" placeholder="Berthe Fadel" required>
+                        </div>
+                        <div class="form-field">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="hello@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label>Phone Number</label>
+                            <input type="tel" placeholder="+226 00 00 00 00">
+                        </div>
+                        <div class="form-field">
+                            <label>Interest</label>
+                            <select>
+                                <option value="">Select a topic...</option>
+                                <option>Enroll in Courses</option>
+                                <option>Partnership</option>
+                                <option>Custom Project</option>
+                                <option>Digital Marketing</option>
+                                <option>General Inquiry</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label>Message</label>
+                        <textarea placeholder="Tell us about your interest or question..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:1rem 2rem;">
+                        <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <span class="footer-logo-text"><em>Koulé</em> Ingenium</span>
+                <p>Bridging educational inequality through robotics, AI, and Python education in Burkina Faso and across Africa.</p>
+                <div class="footer-socials">
+                    <a href="https://wa.me/22651881725" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="mailto:fadelberthe24@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:+22651881725" class="social-link" title="Call"><i class="fas fa-phone"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#mission">Mission</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#actualities">News</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Courses</h4>
+                <ul>
+                    <li><a href="#courses">Robotics Fundamentals</a></li>
+                    <li><a href="#courses">Python Programming</a></li>
+                    <li><a href="#courses">CAD & Mechanical Design</a></li>
+                    <li><a href="#contact">Scholarships</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Newsletter</h4>
+                <p style="font-size:0.88rem;margin-bottom:1rem;">Updates on new courses, projects, and initiatives.</p>
+                <div class="newsletter-row">
+                    <input type="email" placeholder="your@email.com">
+                    <button type="button"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 Koulé Ingenium · Ouagadougou, Burkina Faso</span>
+            <span>Koulé: The arts of building · Ingenium: The science and tools</span>
+        </div>
+    </div>
+</footer>
+
+<!-- Admin Panel -->
+<div class="admin-overlay" id="adminOverlay"></div>
+<div class="admin-panel" id="adminPanel">
+    <div class="admin-panel-header">
+        <div class="admin-panel-title">ADMIN</div>
+        <button class="admin-close-btn" id="closeAdminPanel"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-title"><i class="fas fa-cogs"></i> Add Service</div>
+        <form id="addServiceForm">
+            <div class="admin-form-group">
+                <label>Icon Class (Font Awesome)</label>
+                <input type="text" id="serviceIconInput" placeholder="fas fa-robot" required>
+            </div>
+            <div class="admin-form-group">
+                <label>Service Title</label>
+                <input type="text" id="serviceTitleInput" placeholder="Service Name" required>
+            </div>
+            <div class="admin-form-group">
+                <label>Description</label>
+                <textarea id="serviceDescriptionInput" placeholder="Describe the service..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Add Service</button>
+        </form>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-title"><i class="fas fa-list"></i> Existing Services</div>
+        <div class="admin-item-list" id="servicesList"></div>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-title"><i class="fas fa-newspaper"></i> Add News/Project</div>
+        <form id="addActualityForm">
+            <div class="admin-form-group">
+                <label>Title</label>
+                <input type="text" id="actualityTitleInput" placeholder="Project Title" required>
+            </div>
+            <div class="admin-form-group">
+                <label>Date</label>
+                <input type="date" id="actualityDateInput" required>
+            </div>
+            <div class="admin-form-group">
+                <label>Content</label>
+                <textarea id="actualityContentInput" placeholder="Project description..." required></textarea>
+            </div>
+            <div class="admin-form-group">
+                <label>Image URL</label>
+                <input type="url" id="actualityImageInput" placeholder="https://...">
+            </div>
+            <div class="admin-form-group">
+                <label>Status</label>
+                <select id="actualityStatusInput">
+                    <option value="in-progress">In Progress</option>
+                    <option value="upcoming">Upcoming</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            <div class="admin-form-group">
+                <label>Progress % (for In Progress)</label>
+                <input type="number" id="actualityProgressInput" placeholder="0–100" min="0" max="100">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Add News/Project</button>
+        </form>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-title"><i class="fas fa-list"></i> Existing News</div>
+        <div class="admin-item-list" id="actualitiesList"></div>
+    </div>
+
+    <button class="btn" id="logoutBtn" style="width:100%;justify-content:center;background:rgba(220,53,69,0.15);color:#ff6b7a;border:1px solid rgba(220,53,69,0.3);">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </button>
+</div>
+
+<!-- Login Modal -->
+<div class="login-modal" id="loginModal">
+    <div class="login-box">
+        <div class="login-box-title">ADMIN</div>
+        <div class="login-box-sub">Koulé Ingenium Panel</div>
+        <form id="loginForm">
+            <div class="admin-form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="admin" required>
+            </div>
+            <div class="admin-form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:1rem;">
+                <i class="fas fa-lock"></i> Sign In
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // ─── DATA ───
+    const ADMIN_CREDENTIALS = { username: 'admin', password: 'koule123' };
+
+    let services = JSON.parse(localStorage.getItem('koule_services')) || [
+        { id:1, icon:"fas fa-chalkboard-teacher", title:"Robotics & AI Courses", description:"Comprehensive courses for kids and teens covering robotics fundamentals, AI concepts, and practical applications using Arduino and Python. Based in Ouagadougou, Burkina Faso." },
+        { id:2, icon:"fas fa-laptop-code", title:"Python Programming", description:"Beginner to advanced Python programming courses tailored for young learners in Burkina Faso, focusing on practical projects and real-world applications." },
+        { id:3, icon:"fas fa-cube", title:"CAD Design & Engineering", description:"Mechanical engineering and CAD design instruction in Ouagadougou, teaching students how to design, prototype, and build their own mechanical creations." },
+        { id:4, icon:"fas fa-bullhorn", title:"Digital Marketing Solutions", description:"Professional digital marketing services for businesses in Burkina Faso, including web development, SEO, content creation, and brand strategy." },
+        { id:5, icon:"fas fa-hands-helping", title:"Educational Equity Programs", description:"Scholarships and specialized programs for children from underprivileged backgrounds in Burkina Faso to ensure equal access to technology education." },
+        { id:6, icon:"fas fa-project-diagram", title:"Custom Project Development", description:"Design and development of custom robotics, AI, and mechanical engineering projects for educational and commercial applications in West Africa." }
+    ];
+
+    let actualities = JSON.parse(localStorage.getItem('koule_actualities')) || [
+        { id:1, title:"New Robotics Lab – Ouagadougou", date:"2025-09-15", content:"Our new robotics lab is currently being set up in Ouagadougou. The facility will be equipped with 3D printers, Arduino kits, robotics equipment, and computers — serving as a hub for innovation and hands-on learning for children across Burkina Faso.", image:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", status:"in-progress", progress:40 },
+        { id:2, title:"Summer Camp 2026 – Planning Phase", date:"2026-05-10", content:"We're planning our annual summer camp for 2026. The program will train over 50 children in robotics and programming basics. Scholarships will be available for underprivileged students.", image:"https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", status:"in-progress", progress:40 },
+        { id:3, title:"Mobile Robotics Workshop – Coming Soon", date:"2026-10-01", content:"A mobile robotics workshop that will travel to rural areas of Burkina Faso. This initiative aims to bring robotics education to children who cannot travel to Ouagadougou.", image:"https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", status:"upcoming", progress:15 },
+        { id:4, title:"Partnership with Local Schools", date:"2025-11-01", content:"We've successfully partnered with 2 local schools in Ouagadougou to integrate robotics into their regular curriculum. This will reach 200+ additional students.", image:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", status:"completed", progress:100 }
+    ];
+
+    // ─── RENDER SERVICES ───
+    function renderServices() {
+        const c = document.getElementById('servicesContainer');
+        if (!c) return;
+        c.innerHTML = services.map((s, i) => `
+            <div class="service-card">
+                <div class="service-num">0${i+1}</div>
+                <div class="service-icon"><i class="${s.icon}"></i></div>
+                <div class="service-title">${s.title}</div>
+                <p class="service-desc">${s.description}</p>
+            </div>
+        `).join('');
+    }
+
+    // ─── RENDER ACTUALITIES ───
+    function renderActualities() {
+        const c = document.getElementById('actualitiesContainer');
+        if (!c) return;
+        const sorted = [...actualities].sort((a,b) => new Date(b.date)-new Date(a.date));
+        c.innerHTML = sorted.map(a => {
+            const statusClass = a.status === 'in-progress' ? 'badge-inprogress' : a.status === 'completed' ? 'badge-completed' : 'badge-upcoming';
+            const statusText = a.status === 'in-progress' ? 'In Progress' : a.status === 'completed' ? 'Completed' : 'Upcoming';
+            const progressHTML = a.status === 'in-progress' ? `
+                <div class="progress-track">
+                    <div class="progress-fill" style="width:${a.progress}%"></div>
+                </div>
+                <div class="progress-info">
+                    <span>Progress</span><span>${a.progress}%</span>
+                </div>
+            ` : '';
+            return `
+                <div class="actuality-card">
                     <div class="actuality-img">
-                        <img src="${actuality.image}" alt="${actuality.title}">
-                        <div class="actuality-status ${statusClass}">${statusText}</div>
+                        <img src="${a.image}" alt="${a.title}" loading="lazy">
+                        <span class="actuality-status-badge ${statusClass}">${statusText}</span>
                     </div>
-                    <div class="actuality-content">
-                        <div class="actuality-date">
-                            <i class="far fa-calendar"></i> ${formatDate(actuality.date)}
+                    <div class="actuality-body">
+                        <div class="actuality-meta">
+                            <span class="actuality-date"><i class="far fa-calendar"></i> ${formatDate(a.date)}</span>
                         </div>
-                        <h3>${actuality.title}</h3>
-                        <p>${actuality.content}</p>
+                        <div class="actuality-title">${a.title}</div>
+                        <p class="actuality-text">${a.content}</p>
                         ${progressHTML}
                     </div>
-                `;
-                container.appendChild(card);
-            });
-        }
+                </div>
+            `;
+        }).join('');
+    }
 
-        // Render services in admin panel
-        function renderAdminServices() {
-            const container = document.getElementById('servicesList');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            services.forEach(service => {
-                const item = document.createElement('div');
-                item.className = 'admin-item';
-                item.innerHTML = `
-                    <div class="admin-item-header">
-                        <h4>${service.title}</h4>
-                        <div class="admin-item-actions">
-                            <button class="btn btn-sm btn-danger" onclick="deleteService(${service.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
+    // ─── RENDER ADMIN LISTS ───
+    function renderAdminServices() {
+        const c = document.getElementById('servicesList');
+        if (!c) return;
+        c.innerHTML = services.length === 0 ? '<p style="color:rgba(245,240,232,0.3);font-size:0.85rem;">No services yet.</p>' : services.map(s => `
+            <div class="admin-item">
+                <div class="admin-item-top">
+                    <div>
+                        <div class="admin-item-name">${s.title}</div>
+                        <div class="admin-item-meta"><i class="${s.icon}"></i></div>
                     </div>
-                    <p><i class="${service.icon}"></i> ${service.description.substring(0, 100)}...</p>
-                `;
-                container.appendChild(item);
-            });
-        }
+                    <button class="btn-delete" onclick="deleteService(${s.id})"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
 
-        // Render actualities in admin panel
-        function renderAdminActualities() {
-            const container = document.getElementById('actualitiesList');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            
-            actualities.forEach(actuality => {
-                const statusText = actuality.status === 'in-progress' ? 'In Progress' : 
-                                  actuality.status === 'completed' ? 'Completed' : 'Upcoming';
-                
-                const item = document.createElement('div');
-                item.className = 'admin-item';
-                item.innerHTML = `
-                    <div class="admin-item-header">
-                        <h4>${actuality.title}</h4>
-                        <div class="admin-item-actions">
-                            <button class="btn btn-sm btn-danger" onclick="deleteActuality(${actuality.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
+    function renderAdminActualities() {
+        const c = document.getElementById('actualitiesList');
+        if (!c) return;
+        c.innerHTML = actualities.length === 0 ? '<p style="color:rgba(245,240,232,0.3);font-size:0.85rem;">No news items yet.</p>' : actualities.map(a => `
+            <div class="admin-item">
+                <div class="admin-item-top">
+                    <div>
+                        <div class="admin-item-name">${a.title}</div>
+                        <div class="admin-item-meta">${formatDate(a.date)} · ${a.status}${a.progress ? ` · ${a.progress}%` : ''}</div>
                     </div>
-                    <p><small>${formatDate(actuality.date)} | Status: ${statusText}${actuality.progress ? ` (${actuality.progress}%)` : ''}</small></p>
-                    <p>${actuality.content.substring(0, 100)}...</p>
-                `;
-                container.appendChild(item);
+                    <button class="btn-delete" onclick="deleteActuality(${a.id})"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function formatDate(d) {
+        return new Date(d).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+    }
+
+    function generateId(arr) { return arr.length ? Math.max(...arr.map(i=>i.id))+1 : 1; }
+
+    function save() {
+        localStorage.setItem('koule_services', JSON.stringify(services));
+        localStorage.setItem('koule_actualities', JSON.stringify(actualities));
+    }
+
+    function deleteService(id) {
+        if (confirm('Delete this service?')) {
+            services = services.filter(s => s.id !== id);
+            save(); renderServices(); renderAdminServices();
+        }
+    }
+
+    function deleteActuality(id) {
+        if (confirm('Delete this news item?')) {
+            actualities = actualities.filter(a => a.id !== id);
+            save(); renderActualities(); renderAdminActualities();
+        }
+    }
+
+    function isLoggedIn() { return localStorage.getItem('koule_admin_logged_in') === 'true'; }
+
+    function openAdminPanel() {
+        document.getElementById('adminPanel').classList.add('active');
+        document.getElementById('adminOverlay').classList.add('active');
+    }
+
+    function closeAdminPanel() {
+        document.getElementById('adminPanel').classList.remove('active');
+        document.getElementById('adminOverlay').classList.remove('active');
+    }
+
+    // ─── INIT ───
+    document.addEventListener('DOMContentLoaded', () => {
+        renderServices();
+        renderActualities();
+        renderAdminServices();
+        renderAdminActualities();
+
+        // Mobile menu
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            a.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
-        }
+        });
 
-        // Format date
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-US', options);
-        }
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) window.scrollTo({ top: t.offsetTop - 72, behavior: 'smooth' });
+            });
+        });
 
-        // Generate unique ID
-        function generateId(items) {
-            return items.length > 0 ? Math.max(...items.map(item => item.id)) + 1 : 1;
-        }
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('input[type="text"]').value;
+            const email = form.querySelector('input[type="email"]').value;
+            const phone = form.querySelector('input[type="tel"]').value;
+            const message = form.querySelector('textarea').value;
+            const msg = `New Contact:%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AMessage: ${message}`;
+            window.open(`https://wa.me/22651881725?text=${msg}`, '_blank');
+            alert('Redirecting to WhatsApp. We will get back to you soon!');
+            form.reset();
+        });
 
-        // Add new service
-        function addService(icon, title, description) {
-            const newService = {
-                id: generateId(services),
-                icon,
-                title,
-                description
-            };
-            
-            services.push(newService);
-            localStorage.setItem('koule_services', JSON.stringify(services));
-            renderServices();
-            renderAdminServices();
-            
-            alert('Service added successfully!');
-        }
+        // Newsletter
+        document.querySelector('.newsletter-row button').addEventListener('click', () => {
+            const inp = document.querySelector('.newsletter-row input');
+            if (inp.value) { alert('Subscribed! Thank you.'); inp.value = ''; }
+        });
 
-        // Add new actuality
-        function addActuality(title, date, content, image, status, progress) {
-            const newActuality = {
-                id: generateId(actualities),
-                title,
-                date,
-                content,
-                image,
-                status: status || 'in-progress',
-                progress: progress || 0
-            };
-            
-            actualities.push(newActuality);
-            localStorage.setItem('koule_actualities', JSON.stringify(actualities));
-            renderActualities();
-            renderAdminActualities();
-            
-            alert('News/Actuality added successfully!');
-        }
+        // Scroll header shadow
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').style.boxShadow =
+                window.scrollY > 80 ? '0 8px 32px rgba(13,17,23,0.12)' : '0 1px 0 rgba(13,17,23,0.08)';
+        });
 
-        // Delete service
-        function deleteService(id) {
-            if (confirm('Are you sure you want to delete this service?')) {
-                services = services.filter(service => service.id !== id);
-                localStorage.setItem('koule_services', JSON.stringify(services));
-                renderServices();
-                renderAdminServices();
-            }
-        }
+        // Admin
+        document.getElementById('closeAdminPanel').addEventListener('click', closeAdminPanel);
+        document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
 
-        // Delete actuality
-        function deleteActuality(id) {
-            if (confirm('Are you sure you want to delete this news item?')) {
-                actualities = actualities.filter(actuality => actuality.id !== id);
-                localStorage.setItem('koule_actualities', JSON.stringify(actualities));
-                renderActualities();
-                renderAdminActualities();
-            }
-        }
-
-        // Check if user is logged in
-        function isLoggedIn() {
-            return localStorage.getItem('koule_admin_logged_in') === 'true';
-        }
-
-        // Login function
-        function login(username, password) {
-            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                localStorage.setItem('koule_admin_logged_in', 'true');
-                return true;
-            }
-            return false;
-        }
-
-        // Logout function
-        function logout() {
+        document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('koule_admin_logged_in');
             closeAdminPanel();
-            alert('Logged out successfully!');
-        }
+        });
 
-        // Open admin panel
-        function openAdminPanel() {
-            document.getElementById('adminPanel').classList.add('active');
-            document.getElementById('adminOverlay').classList.add('active');
-        }
-
-        // Close admin panel
-        function closeAdminPanel() {
-            document.getElementById('adminPanel').classList.remove('active');
-            document.getElementById('adminOverlay').classList.remove('active');
-        }
-
-        // DOM Content Loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize data
-            initData();
-            
-            // Mobile Menu Toggle
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                    ? '<i class="fas fa-times"></i>' 
-                    : '<i class="fas fa-bars"></i>';
-            });
-            
-            // Close mobile menu when clicking on a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                });
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if(targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if(targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Contact form submission
-            const contactForm = document.getElementById('contactForm');
-            if(contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Get form data
-                    const name = this.querySelector('input[type="text"]').value;
-                    const email = this.querySelector('input[type="email"]').value;
-                    const phone = this.querySelector('input[type="tel"]').value;
-                    const message = this.querySelector('textarea').value;
-                    
-                    // Create WhatsApp message
-                    const whatsappMessage = `New Contact Form Submission:%0A%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AMessage: ${message}`;
-                    
-                    // Open WhatsApp with pre-filled message
-                    window.open(`https://wa.me/22651881725?text=${whatsappMessage}`, '_blank');
-                    
-                    // Show confirmation
-                    alert('Thank you for your message! We will contact you soon on WhatsApp.');
-                    this.reset();
-                });
+        // Login form
+        document.getElementById('loginForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if (u === ADMIN_CREDENTIALS.username && p === ADMIN_CREDENTIALS.password) {
+                localStorage.setItem('koule_admin_logged_in', 'true');
+                document.getElementById('loginModal').classList.remove('active');
+                openAdminPanel();
+            } else {
+                alert('Invalid credentials.');
             }
-            
-            // Newsletter form submission
-            const newsletterForm = document.querySelector('.newsletter-form');
-            if(newsletterForm) {
-                newsletterForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const emailInput = this.querySelector('input[type="email"]');
-                    if(emailInput.value) {
-                        alert('Thank you for subscribing to our newsletter! You will receive updates via email.');
-                        emailInput.value = '';
-                    }
-                });
-            }
-            
-            // Add scroll effect to navbar
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('header');
-                if(window.scrollY > 100) {
-                    header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-                } else {
-                    header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.1)';
+            e.target.reset();
+        });
+
+        document.getElementById('loginModal').addEventListener('click', e => {
+            if (e.target === document.getElementById('loginModal'))
+                document.getElementById('loginModal').classList.remove('active');
+        });
+
+        // Add service
+        document.getElementById('addServiceForm').addEventListener('submit', e => {
+            e.preventDefault();
+            services.push({
+                id: generateId(services),
+                icon: document.getElementById('serviceIconInput').value,
+                title: document.getElementById('serviceTitleInput').value,
+                description: document.getElementById('serviceDescriptionInput').value
+            });
+            save(); renderServices(); renderAdminServices();
+            e.target.reset();
+            alert('Service added!');
+        });
+
+        // Add actuality
+        document.getElementById('addActualityForm').addEventListener('submit', e => {
+            e.preventDefault();
+            actualities.push({
+                id: generateId(actualities),
+                title: document.getElementById('actualityTitleInput').value,
+                date: document.getElementById('actualityDateInput').value,
+                content: document.getElementById('actualityContentInput').value,
+                image: document.getElementById('actualityImageInput').value || 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=80',
+                status: document.getElementById('actualityStatusInput').value,
+                progress: parseInt(document.getElementById('actualityProgressInput').value) || 0
+            });
+            save(); renderActualities(); renderAdminActualities();
+            e.target.reset();
+            alert('News item added!');
+        });
+
+        // SECRET ADMIN: double-click logo
+        document.querySelector('.logo').addEventListener('dblclick', () => {
+            if (isLoggedIn()) openAdminPanel();
+            else document.getElementById('loginModal').classList.add('active');
+        });
+
+        // Intersection observer for skill bars
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+                        bar.style.width = bar.style.width;
+                    });
                 }
             });
-            
-            // Admin login button
-            const adminLoginBtn = document.getElementById('adminLoginBtn');
-            if (adminLoginBtn) {
-                adminLoginBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    if (isLoggedIn()) {
-                        openAdminPanel();
-                    } else {
-                        document.getElementById('loginModal').classList.add('active');
-                    }
-                });
-            }
-            
-            // Login form submission
-            const loginForm = document.getElementById('loginForm');
-            if (loginForm) {
-                loginForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const username = document.getElementById('username').value;
-                    const password = document.getElementById('password').value;
-                    
-                    if (login(username, password)) {
-                        document.getElementById('loginModal').classList.remove('active');
-                        openAdminPanel();
-                        alert('Login successful! Welcome to Koulé Ingenium Admin Panel.');
-                    } else {
-                        alert('Invalid username or password!');
-                    }
-                    
-                    this.reset();
-                });
-            
-                // Close login modal when clicking outside
-                document.getElementById('loginModal').addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('active');
-                    }
-                });
-            }
-            
-            // Close admin panel buttons
-            document.getElementById('closeAdminPanel').addEventListener('click', closeAdminPanel);
-            document.getElementById('adminOverlay').addEventListener('click', closeAdminPanel);
-            
-            // Logout button
-            document.getElementById('logoutBtn').addEventListener('click', logout);
-            
-            // Add service form
-            const addServiceForm = document.getElementById('addServiceForm');
-            if (addServiceForm) {
-                addServiceForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const icon = document.getElementById('serviceIconInput').value;
-                    const title = document.getElementById('serviceTitleInput').value;
-                    const description = document.getElementById('serviceDescriptionInput').value;
-                    
-                    addService(icon, title, description);
-                    this.reset();
-                });
-            }
-            
-            // Add actuality form
-            const addActualityForm = document.getElementById('addActualityForm');
-            if (addActualityForm) {
-                addActualityForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const title = document.getElementById('actualityTitleInput').value;
-                    const date = document.getElementById('actualityDateInput').value;
-                    const content = document.getElementById('actualityContentInput').value;
-                    const image = document.getElementById('actualityImageInput').value;
-                    const status = document.getElementById('actualityStatusInput').value;
-                    const progress = parseInt(document.getElementById('actualityProgressInput').value) || 0;
-                    
-                    addActuality(title, date, content, image, status, progress);
-                    this.reset();
-                });
-            }
-            
-            // Make phone number clickable
-            document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (confirm('Call +226 51 88 17 25?')) {
-                        window.location.href = this.href;
-                    }
-                });
-            });
-            
-            // Initialize WhatsApp button functionality
-            const whatsappButton = document.querySelector('.whatsapp-float');
-            if (whatsappButton) {
-                whatsappButton.addEventListener('click', function(e) {
-                    // You can add tracking or analytics here
-                    console.log('WhatsApp button clicked');
-                });
-            }
-        });
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+        }, { threshold: 0.3 });
 
-    const response = await fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        const aboutSection = document.querySelector('.about');
+        if (aboutSection) observer.observe(aboutSection);
     });
-
-    if (response.ok) {
-        window.location.href = '/admin'; // Redirect to admin page on success
-    } else {
-        alert("Wrong username or password!");
-    }
-});
-    </script>
+</script>
 </body>
 </html>
