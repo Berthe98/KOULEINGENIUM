@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3D Printing Services | Koulé Ingenium</title>
-<meta name="description" content="Custom 3D printing in Ouagadougou — prototypes, spare parts, school models and gifts. Upload your STL file and get an instant price estimate.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -187,7 +187,7 @@ table.mt th{color:var(--text-secondary);font-weight:500;font-size:0.72rem;}
 .row-btns{display:flex;gap:0.6rem;flex-wrap:wrap;margin:0.8rem 0;}
 .row-btns .btn{padding:0.65rem 1.1rem;font-size:0.72rem;}
 </style>
-</head>
+<meta name="description" content="Custom 3D printing in Ouagadougou, Burkina Faso: parts, prototypes and gifts. Get an instant price estimate. Impression 3D sur mesure à Ouagadougou."><link rel="canonical" href="https://berthe98.github.io/KOULEINGENIUM/impression-3d.html"><meta property="og:title" content="3D Printing Services | Koulé Ingenium"><meta property="og:url" content="https://berthe98.github.io/KOULEINGENIUM/impression-3d.html"><meta property="og:type" content="website"></head>
 <body>
 
 <nav>
@@ -850,6 +850,51 @@ if (fbReady) {
     if (isOwner && !was) enterOwnerMode(); else if (!isOwner && was) leaveOwnerMode();
   });
 }
+</script>
+<script>
+/* Auto-translate: detects the visitor's phone/browser language and translates the page (Google Website Translator). */
+(function(){
+  var SRC='en', KEY='ki_lang';
+  var LANGS=[['en','English'],['fr','Français'],['ar','العربية'],['es','Español'],['pt','Português'],['de','Deutsch'],['hi','हिन्दी'],['zh-CN','中文'],['bm','Bambara'],['ha','Hausa'],['sw','Kiswahili']];
+  function norm(c){c=String(c||'').replace('_','-');var p=c.split('-')[0].toLowerCase();return p==='zh'?'zh-CN':p;}
+  function store(v){try{if(v===undefined)return localStorage.getItem(KEY);localStorage.setItem(KEY,v);}catch(e){}return null;}
+  function cookie(v){
+    var base='googtrans=';
+    if(v&&v!==SRC){document.cookie=base+'/'+SRC+'/'+v+';path=/';}
+    else{document.cookie=base+';path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';document.cookie=base+';expires=Thu, 01 Jan 1970 00:00:00 GMT';}
+  }
+  var saved=store(), detected=norm((navigator.languages&&navigator.languages[0])||navigator.language||SRC);
+  var lang=saved||detected||SRC;
+  if(!/^[a-zA-Z-]{2,7}$/.test(lang))lang=SRC;
+  if(!LANGS.some(function(l){return l[0]===lang;})){
+    var nm=lang;try{nm=new Intl.DisplayNames([lang],{type:'language'}).of(lang)||lang;}catch(e){}
+    LANGS.push([lang,nm]);
+  }
+  var hadCookie=/(?:^|;\s*)googtrans=\/[^;]+/.test(document.cookie);
+  cookie(lang);
+  var css=document.createElement('style');
+  css.textContent='body{top:0!important}.goog-te-banner-frame,iframe.skiptranslate,#goog-gt-tt,.goog-te-balloon-frame,.VIpgJd-ZVi9od-ORHb-OEVmcd{display:none!important}.goog-text-highlight{background:none!important;box-shadow:none!important}#google_translate_element{position:absolute;left:-9999px;top:0;height:0;overflow:hidden}'+
+   '.ki-lang{position:fixed;left:12px;bottom:12px;z-index:900;display:flex;align-items:center;gap:.35rem;background:#0d2119;color:#f2b31b;border:1px solid rgba(242,179,27,.45);border-radius:999px;padding:.15rem .3rem .15rem .75rem;font:600 .8rem "DM Sans",system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.25)}'+
+   '.ki-lang select{appearance:none;-webkit-appearance:none;background:transparent;color:#f2b31b;border:0;font:inherit;padding:.4rem .9rem .4rem .1rem;cursor:pointer;max-width:9.5rem}.ki-lang select option{color:#0d2119;background:#fff}';
+  document.head.appendChild(css);
+  function mount(){
+    ['.ki-admin-panel','.ki-login-box','#lmsBuildOv','#lmsStudOv','.ki-logo span','.ki-whatsapp-float'].forEach(function(s){
+      [].forEach.call(document.querySelectorAll(s),function(n){n.classList.add('notranslate');n.setAttribute('translate','no');});
+    });
+    var host=document.createElement('div');host.id='google_translate_element';host.className='notranslate';document.body.appendChild(host);
+    var box=document.createElement('div');box.className='ki-lang notranslate';box.setAttribute('translate','no');
+    box.innerHTML='<span aria-hidden="true">🌐</span>';
+    var sel=document.createElement('select');sel.setAttribute('aria-label','Language');
+    LANGS.forEach(function(l){var o=document.createElement('option');o.value=l[0];o.textContent=l[1];if(l[0]===lang)o.selected=true;sel.appendChild(o);});
+    sel.onchange=function(){store(sel.value);cookie(sel.value);location.reload();};
+    box.appendChild(sel);document.body.appendChild(box);
+    if(lang!==SRC){
+      window.kiGT=function(){try{new google.translate.TranslateElement({pageLanguage:SRC,autoDisplay:false,includedLanguages:LANGS.map(function(l){return l[0];}).join(',')},'google_translate_element');}catch(e){}};
+      var s=document.createElement('script');s.async=true;s.src='https://translate.google.com/translate_a/element.js?cb=kiGT';s.onerror=function(){};document.head.appendChild(s);
+    }else if(hadCookie){location.reload();}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
 </script>
 </body>
 </html>

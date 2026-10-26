@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://berthe98.github.io/KOULEINGENIUM/sitemap.xml
