@@ -707,6 +707,8 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
 .lms-cc{background:#fff;border:1px solid #e1e8e2;border-radius:12px;padding:1rem;display:flex;flex-direction:column;gap:.5rem;}
 .lms-cc .ki-btn{align-self:flex-start;padding:.5rem 1.1rem;}
 .lms-smt em,.lms-mod summary em{font-style:normal;font-size:.75rem;opacity:.7;margin-left:.4rem;}
+.lms-pay{background:#fff8e6;border:1px solid #f0d58a;border-radius:10px;padding:.8rem 1rem;margin-top:.9rem;font-size:.9rem;color:#3b2f00;}
+.lms-pay ol{margin:.4rem 0 0 1.1rem;padding:0;} .lms-pay p{margin:.3rem 0 0;}
 </style>
 <link rel="canonical" href="https://berthe98.github.io/KOULEINGENIUM/"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:url" content="https://berthe98.github.io/KOULEINGENIUM/"><meta property="og:image" content="https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg"><meta property="og:site_name" content="Koulé Ingenium"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="fr_FR"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Koulé Ingenium | Robotics, 3D Printing &amp; Online Courses"><meta name="twitter:image" content="https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"Koulé Ingenium","url":"https://berthe98.github.io/KOULEINGENIUM/","image":"https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg","description":"Robotics, AI, Python and CAD education, custom 3D printing and an online academy in Ouagadougou, Burkina Faso.","telephone":"+22651881725","address":{"@type":"PostalAddress","addressLocality":"Ouagadougou","addressCountry":"BF"},"areaServed":"Burkina Faso","sameAs":["https://www.tiktok.com/@koule.ingenium","https://youtube.com/@fadelberthe7108","https://wa.me/22651881725"],"knowsLanguage":["fr","en"]}</script></head>
 <body data-view="home">
@@ -2985,6 +2987,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
   const OWNER_UID = 'qPLDPjpxfLfACRXLHt7MyS4T1Ur1';
   const WA = '22651881725';
   const $ = id => document.getElementById(id);
+  const OM = '54323658', fcfa = n => new Intl.NumberFormat('fr-FR').format(parseInt(n, 10) || 0).replace(/[\u202f\u00a0]/g, ' ') + ' FCFA';
   const L = window.__lms = { courses: [], loaded: false, error: false, user: null, enroll: {}, prog: {}, cache: {}, f: { q: '', level: 'All levels' }, afterAuth: null };
   const TYPE = { video: { ic: '▶', label: 'Video' }, reading: { ic: '☰', label: 'Reading' }, quiz: { ic: '✓', label: 'Quiz' } };
   const LEVELS = ['All levels', 'Beginner', 'Intermediate', 'Advanced'];
@@ -3057,7 +3060,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
     document.querySelectorAll('[data-authtab]').forEach(b => b.classList.toggle('active', b.dataset.authtab === m));
     $('lmsNameRow').hidden = m !== 'up'; $('lmsPassHint').hidden = m !== 'up';
     $('lmsAuthSubmit').textContent = m === 'up' ? 'Create my account' : 'Sign in';
-    $('lmsAuthSub').textContent = m === 'up' ? 'Create a free student account to enrol in courses.' : 'Sign in to enrol and follow your courses.';
+    $('lmsAuthSub').textContent = m === 'up' ? 'Create a student account to request access to courses.' : 'Sign in to enrol and follow your courses.';
     $('lmsPass').autocomplete = m === 'up' ? 'new-password' : 'current-password';
     $('lmsAuthErr').textContent = '';
   }
@@ -3108,7 +3111,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
   }
   function cardHTML(c) {
     const e = L.enroll[c.id], active = e && e.status === 'active', n = flat(c).length;
-    let foot = '<div class="lms-state">' + (c.access === 'approval' ? 'Enrolment on request' : 'Free to join') + '</div>';
+    let foot = '<div class="lms-state">' + (c.access === 'approval' ? (parseInt(c.price, 10) > 0 ? fcfa(c.price) + ' · paid course' : 'Paid course') : 'Free to join') + '</div>';
     if (active) foot = '<div class="lms-bar"><i style="width:' + pct(c) + '%"></i></div><div class="lms-state">' + (pct(c) === 100 ? 'Completed ✓' : pct(c) + '% complete') + '</div>';
     else if (e) foot = '<div class="lms-state pending">Waiting for approval</div>';
     return '<a class="lms-card" href="#learn/' + esc(c.id) + '"><div class="lms-cover">' + (c.cover ? '<img src="' + esc(c.cover) + '" alt="" loading="lazy">' : '<span>◈</span>') +
@@ -3142,7 +3145,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
   function catalogHTML() {
     const owner = L.ownerSession();
     const mine = L.courses.filter(c => L.enroll[c.id] && L.enroll[c.id].status === 'active').length;
-    return '<header class="mk-hero lms-hero"><div class="mk-hero-in"><div><h1>Koulé Academy</h1><p>Learn robotics, Python, AI and CAD with short video lessons, reading, quizzes and a certificate at the end. Create a free account, enrol and learn at your own pace.</p><p style="margin-top:.7rem;font-size:.9rem;">Enrolled through the Yashin classroom (Orange Money)? <a href="classroom.html" style="color:var(--gold);font-weight:600;">Open your classroom →</a></p><p style="margin-top:.5rem;font-size:.9rem;"><a href="#learn/playground" style="color:var(--gold);font-weight:600;">▶ Free code playground: run JavaScript and Python →</a></p></div>' +
+    return '<header class="mk-hero lms-hero"><div class="mk-hero-in"><div><h1>Koulé Academy</h1><p>Learn robotics, Python, AI and CAD with short video lessons, reading, quizzes and a certificate at the end. Create a student account, pay by Orange Money, and learn at your own pace once your access is confirmed.</p><p style="margin-top:.7rem;font-size:.9rem;">Enrolled through the Yashin classroom (Orange Money)? <a href="classroom.html" style="color:var(--gold);font-weight:600;">Open your classroom →</a></p><p style="margin-top:.5rem;font-size:.9rem;"><a href="#learn/playground" style="color:var(--gold);font-weight:600;">▶ Free code playground: run JavaScript and Python →</a></p></div>' +
       '<div class="lms-acct" id="lmsAcct">' + acctHTML() + '</div></div></header>' +
       '<div class="mk-wrap">' + (owner ? '<div class="mk-owner-bar"><span><strong>Owner mode.</strong> Build courses, publish them and approve students.</span><button class="ki-btn ki-btn-dark" type="button" data-lms="build">Course builder</button><button class="ki-btn ki-btn-outline" type="button" data-lms="students" style="color:inherit;">Students</button><button class="ki-btn ki-btn-outline" type="button" data-lms="install" style="color:inherit;">Install all starter courses</button></div>' : '') +
       (mine ? '<p class="mk-count">You are enrolled in ' + mine + (mine === 1 ? ' course.' : ' courses.') + '</p>' : '') +
@@ -3160,9 +3163,9 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
       return '<div class="lms-bar big"><i style="width:' + p + '%"></i></div><div class="lms-state" style="margin:.4rem 0 1rem;">' + p + '% complete</div><button class="ki-btn ki-btn-primary ki-btn-block" data-lms="start">' + (p === 0 ? 'Start course' : (p === 100 ? 'Review course' : 'Continue learning')) + '</button>' +
         (p === 100 ? '<button class="ki-btn ki-btn-outline ki-btn-block" data-lms="cert" style="margin-top:.6rem;color:var(--ink);">Get your certificate</button>' : '');
     }
-    if (e) return '<div class="lms-state pending" style="font-size:1rem;margin-bottom:.6rem;">Waiting for approval</div><p class="mk-note" style="color:var(--muted)">We will activate your access soon. You can speed this up by messaging us.</p><a class="ki-btn ki-btn-outline ki-btn-block" style="color:var(--ink);margin-top:.7rem;" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello Koulé Ingenium, I requested access to the course "' + c.title + '". My name is ' + (L.user.displayName || '') + '.') + '">Message us on WhatsApp</a>';
-    return '<button class="ki-btn ki-btn-primary ki-btn-block" data-lms="enrol">' + (c.access === 'approval' ? 'Request access' : 'Enrol now — free') + '</button><p class="mk-note" style="color:var(--muted);margin-top:.8rem;">' +
-      (c.access === 'approval' ? 'Access is confirmed by Koulé Ingenium after you request it.' : 'You get instant access to all ' + n + ' lessons.') + (L.user ? '' : ' You will be asked to sign in or create a free account.') + '</p>';
+    if (e) return '<div class="lms-state pending" style="font-size:1rem;margin-bottom:.6rem;">Waiting for payment confirmation</div><div class="lms-pay"><strong>Pay by Orange Money</strong><p>Send ' + (parseInt(c.price, 10) > 0 ? '<b>' + fcfa(c.price) + '</b>' : 'the course fee') + ' to <b>' + OM + '</b>, then send us the screenshot. Your lessons open as soon as we confirm.</p></div><a class="ki-btn ki-btn-primary ki-btn-block" style="margin-top:.7rem;" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello Koulé Ingenium, I paid by Orange Money for the course "' + c.title + '". My name is ' + ((L.user && L.user.displayName) || '') + ' and my email is ' + ((L.user && L.user.email) || '') + '. Screenshot attached.') + '">Send payment proof on WhatsApp</a>';
+    return '<button class="ki-btn ki-btn-primary ki-btn-block" data-lms="enrol">' + (c.access === 'approval' ? 'Request access' : 'Enrol now — free') + '</button>' + (c.access === 'approval' ? '<div class="lms-pay"><strong>How to pay</strong><ol><li>Tap <em>Request access</em> (create your account if asked).</li><li>Send ' + (parseInt(c.price, 10) > 0 ? '<b>' + fcfa(c.price) + '</b>' : 'the course fee') + ' by <b>Orange Money to ' + OM + '</b>. Write the course name in the reference.</li><li>Send us the payment screenshot on WhatsApp. Your access opens after we confirm.</li></ol></div>' : '') + '<p class="mk-note" style="color:var(--muted);margin-top:.8rem;">' +
+      (c.access === 'approval' ? 'Lessons stay locked until we confirm your payment.' : 'You get instant access to all ' + n + ' lessons.') + (L.user ? '' : ' You will be asked to sign in or create a free account.') + '</p>';
   }
   function courseHTML(c) {
     const f = flat(c), mins = f.reduce((a, l) => a + (parseInt(l.mins, 10) || 0), 0);
@@ -3493,7 +3496,13 @@ window.__AI={"title": "AI for Beginners", "subtitle": "Understand AI, use it saf
     if (!needOwner()) return;
     const have = {}; L.courses.forEach(c => { have[c.id] = 1; });
     const todo = STARTERS.filter(x => window[x[1]] && !have[x[0]]);
-    if (!todo.length) { showToast('All starter courses are already installed.'); return; }
+    const open = STARTERS.filter(x => have[x[0]] && (L.course(x[0]) || {}).access !== 'approval');
+    if (!todo.length && open.length) {
+      if (!confirm('Switch ' + open.length + ' starter course(s) to PAID (students need your approval after Orange Money payment)?')) return;
+      const b0 = fbDb.batch(); open.forEach(x => b0.update(fbDb.collection('lms_courses').doc(x[0]), { access: 'approval' }));
+      b0.commit().then(() => showToast('Starter courses now need your approval. Set each price in the course builder.')).catch(() => showToast('Could not update.')); return;
+    }
+    if (!todo.length) { showToast('All starter courses are already installed and paid.'); return; }
     if (!confirm('Install ' + todo.length + ' course(s) and publish them now? Existing courses are not changed.')) return;
     btn.disabled = true; const old = btn.textContent; let done = 0;
     function one(i) {
@@ -3507,7 +3516,7 @@ window.__AI={"title": "AI for Beginners", "subtitle": "Understand AI, use it saf
         ops.push([ref.collection('lessons').doc(lid), doc]);
         return { id: lid, title: l.t, type: doc.type, mins: String(l.mins || '') };
       }) }));
-      ops.push([ref, { title: P.title, subtitle: P.subtitle, level: P.level, duration: P.duration, access: 'open', published: true, cover: '', desc: P.desc, outcomes: P.outcomes, cat: P.cat || todo[i][2], modules: modules, lessonCount: n, ts: Date.now(), updated: Date.now() }]);
+      ops.push([ref, { title: P.title, subtitle: P.subtitle, level: P.level, duration: P.duration, access: 'approval', price: 0, published: true, cover: '', desc: P.desc, outcomes: P.outcomes, cat: P.cat || todo[i][2], modules: modules, lessonCount: n, ts: Date.now(), updated: Date.now() }]);
       let k = 0;
       (function chunk() {
         if (k >= ops.length) { done++; one(i + 1); return; }
@@ -3520,7 +3529,7 @@ window.__AI={"title": "AI for Beginners", "subtitle": "Understand AI, use it saf
   }
   L.installAll = installAll;
   function newFull(P) {
-    B = { view: 'edit', content: {}, orig: [], open: {}, course: { id: null, cat: P.cat || '', title: P.title, subtitle: P.subtitle, level: P.level, duration: P.duration, access: 'open', published: false, cover: '', desc: P.desc, outcomes: P.outcomes.join('\n'), ts: null, modules: [] } };
+    B = { view: 'edit', content: {}, orig: [], open: {}, course: { id: null, cat: P.cat || '', price: '', access: 'approval', title: P.title, subtitle: P.subtitle, level: P.level, duration: P.duration, published: false, cover: '', desc: P.desc, outcomes: P.outcomes.join('\n'), ts: null, modules: [] } };
     P.modules.forEach(function (m) { B.course.modules.push({ id: rid('m'), title: m.title, lessons: m.lessons.map(function (l) { const id = rid('l'); B.content[id] = { url: '', text: l.text || '', pass: l.pass || 70, questions: l.type === 'quiz' ? l.quiz.map(function (q) { return { q: q.q, options: q.o.slice(), answer: q.a, explain: q.e || '' }; }) : [] }; return { id: id, title: l.t, type: l.type, mins: l.mins || '' }; }) }); });
     draw();
   }
@@ -3536,7 +3545,7 @@ window.__AI={"title": "AI for Beginners", "subtitle": "Understand AI, use it saf
   }
   function editCourse(id) {
     const c = L.course(id); if (!c) return;
-    B = { view: 'edit', content: {}, orig: [], open: {}, loading: true, course: { id: c.id, cat: c.cat || '', title: c.title, subtitle: c.subtitle || '', level: c.level || 'Beginner', duration: c.duration || '', access: c.access || 'open', published: !!c.published, cover: c.cover || '', desc: c.desc || '', outcomes: (c.outcomes || []).join('\n'), ts: c.ts, modules: JSON.parse(JSON.stringify(c.modules || [])) } };
+    B = { view: 'edit', content: {}, orig: [], open: {}, loading: true, course: { id: c.id, cat: c.cat || '', price: c.price || '', title: c.title, subtitle: c.subtitle || '', level: c.level || 'Beginner', duration: c.duration || '', access: c.access || 'open', published: !!c.published, cover: c.cover || '', desc: c.desc || '', outcomes: (c.outcomes || []).join('\n'), ts: c.ts, modules: JSON.parse(JSON.stringify(c.modules || [])) } };
     draw();
     fbDb.collection('lms_courses').doc(id).collection('lessons').get().then(function (s) {
       if (!B || B.course.id !== id) return;
@@ -3564,6 +3573,7 @@ window.__AI={"title": "AI for Beginners", "subtitle": "Understand AI, use it saf
       '<div class="mk-f"><label>Course title</label><input type="text" data-f="title" value="' + esc(c.title) + '" maxlength="90"></div>' +
       '<div class="mk-f"><label>Short subtitle</label><input type="text" data-f="subtitle" value="' + esc(c.subtitle) + '" maxlength="140"></div>' +
       '<div class="mk-f2"><div class="mk-f"><label>Level</label><select data-f="level">' + sel(c.level, ['Beginner', 'Intermediate', 'Advanced', 'All levels']) + '</select></div><div class="mk-f"><label>Duration</label><input type="text" data-f="duration" value="' + esc(c.duration) + '" placeholder="e.g. 12 weeks" maxlength="30"></div></div>' +
+      '<div class="mk-f" style="max-width:260px;"><label>Price (FCFA, shown to students)</label><input type="number" min="0" step="500" data-f="price" value="' + esc(c.price || '') + '" placeholder="e.g. 25000"></div>' +
       '<div class="mk-f2"><div class="mk-f"><label>Enrolment</label><select data-f="access"><option value="open"' + (c.access === 'open' ? ' selected' : '') + '>Instant — students get access when they enrol</option><option value="approval"' + (c.access === 'approval' ? ' selected' : '') + '>I approve each student first</option></select></div>' +
       '<div class="mk-f"><label>Visibility</label><select data-f="published"><option value="0"' + (!c.published ? ' selected' : '') + '>Draft — only I can see it</option><option value="1"' + (c.published ? ' selected' : '') + '>Published — visible to everyone</option></select></div></div>' +
       '<div class="mk-f"><label>Cover image</label>' + (c.cover ? '<img src="' + esc(c.cover) + '" alt="" style="width:180px;border-radius:10px;margin-bottom:.5rem;display:block;"><button type="button" class="lms-lnk danger" data-b="nocover">Remove cover</button>' : '') + '<label class="mk-drop" for="lmsCover" style="margin-top:.4rem;"><strong>' + (c.cover ? 'Replace cover' : 'Choose a cover image') + '</strong><small>Landscape photo works best. It is resized automatically.</small><input type="file" id="lmsCover" accept="image/*"></label></div>' +
@@ -3614,7 +3624,7 @@ window.__AI={"title": "AI for Beginners", "subtitle": "Understand AI, use it saf
       return { id: l.id, title: l.title.trim(), type: l.type, mins: String(l.mins || '').trim() };
     }) }));
     B.orig.forEach(lid => { if (!keep[lid]) batch.delete(ref.collection('lessons').doc(lid)); });
-    batch.set(ref, { title: c.title.trim(), subtitle: c.subtitle.trim(), level: c.level, duration: c.duration.trim(), access: c.access, published: !!c.published, cover: c.cover || '', desc: c.desc.trim(), outcomes: c.outcomes.split('\n').map(s => s.trim()).filter(Boolean), cat: c.cat || '', modules: modules, lessonCount: n, ts: c.ts || Date.now(), updated: Date.now() });
+    batch.set(ref, { title: c.title.trim(), subtitle: c.subtitle.trim(), level: c.level, duration: c.duration.trim(), access: c.access, published: !!c.published, cover: c.cover || '', desc: c.desc.trim(), outcomes: c.outcomes.split('\n').map(s => s.trim()).filter(Boolean), cat: c.cat || '', price: parseInt(c.price, 10) || 0, modules: modules, lessonCount: n, ts: c.ts || Date.now(), updated: Date.now() });
     batch.commit().then(function () {
       showToast(dropped ? 'Course saved. ' + dropped + ' incomplete quiz question(s) were skipped.' : 'Course saved.');
       B = { view: 'list' }; draw();
