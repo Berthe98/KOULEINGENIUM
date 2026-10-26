@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koulé Ingenium | Where Building Arts Meet Science & Tools</title>
-  <meta name="description" content="Koulé Ingenium is an educational initiative in Ouagadougou, Burkina Faso teaching robotics, AI, Python programming and CAD design to children and teenagers.">
-  <meta name="keywords" content="robotics education, AI for kids, Python programming, CAD design, Ouagadougou, Burkina Faso, STEM education, Koulé Ingenium">
+  <title>Koulé Ingenium | Robotics, 3D Printing & Online Courses in Ouagadougou, Burkina Faso</title>
+  <meta name="description" content="Koulé Ingenium (Ouagadougou, Burkina Faso): robotics, AI, Python and CAD courses for kids and teens, custom 3D printing, a market of made-in-Burkina items and online courses with certificates. Robotique, impression 3D et cours en ligne à Ouagadougou.">
+  <meta name="keywords" content="Koulé Ingenium, robotique Ouagadougou, impression 3D Burkina Faso, cours de robotique enfants, formation Python Burkina, CAO, STEM Burkina Faso, robotics education, 3D printing Ouagadougou">
   <meta name="author" content="Koulé Ingenium">
-  <meta property="og:title" content="Koulé Ingenium | Where Building Arts Meet Science & Tools">
-  <meta property="og:description" content="Teaching robotics, AI, Python and CAD design to children in Ouagadougou, Burkina Faso.">
+  <meta property="og:title" content="Koulé Ingenium | Robotics, 3D Printing &amp; Online Courses">
+  <meta property="og:description" content="Robotics and STEM courses, custom 3D printing, Market and online Academy in Ouagadougou, Burkina Faso.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0d2119">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -689,7 +689,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
 .lms-tbl small{color:var(--text-secondary);}
 @media(max-width:600px){.lms-builder{padding:1.2rem;}}
 </style>
-</head>
+<link rel="canonical" href="https://berthe98.github.io/KOULEINGENIUM/"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:url" content="https://berthe98.github.io/KOULEINGENIUM/"><meta property="og:image" content="https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg"><meta property="og:site_name" content="Koulé Ingenium"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="fr_FR"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Koulé Ingenium | Robotics, 3D Printing &amp; Online Courses"><meta name="twitter:image" content="https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"Koulé Ingenium","url":"https://berthe98.github.io/KOULEINGENIUM/","image":"https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg","description":"Robotics, AI, Python and CAD education, custom 3D printing and an online academy in Ouagadougou, Burkina Faso.","telephone":"+22651881725","address":{"@type":"PostalAddress","addressLocality":"Ouagadougou","addressCountry":"BF"},"areaServed":"Burkina Faso","sameAs":["https://www.tiktok.com/@koule.ingenium","https://wa.me/22651881725"],"knowsLanguage":["fr","en"]}</script></head>
 <body data-view="home">
 
   <!-- Navigation -->
@@ -2906,6 +2906,50 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
   // deep link (#market/<id>) that arrived before the listener existed
   if ((location.hash || '').indexOf('#market/') === 0) window.mkRoute && window.mkRoute();
 })();
+/* Auto-translate: detects the visitor's phone/browser language and translates the page (Google Website Translator). */
+(function(){
+  var SRC='en', KEY='ki_lang';
+  var LANGS=[['en','English'],['fr','Français'],['ar','العربية'],['es','Español'],['pt','Português'],['de','Deutsch'],['hi','हिन्दी'],['zh-CN','中文'],['bm','Bambara'],['ha','Hausa'],['sw','Kiswahili']];
+  function norm(c){c=String(c||'').replace('_','-');var p=c.split('-')[0].toLowerCase();return p==='zh'?'zh-CN':p;}
+  function store(v){try{if(v===undefined)return localStorage.getItem(KEY);localStorage.setItem(KEY,v);}catch(e){}return null;}
+  function cookie(v){
+    var base='googtrans=';
+    if(v&&v!==SRC){document.cookie=base+'/'+SRC+'/'+v+';path=/';}
+    else{document.cookie=base+';path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';document.cookie=base+';expires=Thu, 01 Jan 1970 00:00:00 GMT';}
+  }
+  var saved=store(), detected=norm((navigator.languages&&navigator.languages[0])||navigator.language||SRC);
+  var lang=saved||detected||SRC;
+  if(!/^[a-zA-Z-]{2,7}$/.test(lang))lang=SRC;
+  if(!LANGS.some(function(l){return l[0]===lang;})){
+    var nm=lang;try{nm=new Intl.DisplayNames([lang],{type:'language'}).of(lang)||lang;}catch(e){}
+    LANGS.push([lang,nm]);
+  }
+  var hadCookie=/(?:^|;\s*)googtrans=\/[^;]+/.test(document.cookie);
+  cookie(lang);
+  var css=document.createElement('style');
+  css.textContent='body{top:0!important}.goog-te-banner-frame,iframe.skiptranslate,#goog-gt-tt,.goog-te-balloon-frame,.VIpgJd-ZVi9od-ORHb-OEVmcd{display:none!important}.goog-text-highlight{background:none!important;box-shadow:none!important}#google_translate_element{position:absolute;left:-9999px;top:0;height:0;overflow:hidden}'+
+   '.ki-lang{position:fixed;left:12px;bottom:12px;z-index:900;display:flex;align-items:center;gap:.35rem;background:#0d2119;color:#f2b31b;border:1px solid rgba(242,179,27,.45);border-radius:999px;padding:.15rem .3rem .15rem .75rem;font:600 .8rem "DM Sans",system-ui,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.25)}'+
+   '.ki-lang select{appearance:none;-webkit-appearance:none;background:transparent;color:#f2b31b;border:0;font:inherit;padding:.4rem .9rem .4rem .1rem;cursor:pointer;max-width:9.5rem}.ki-lang select option{color:#0d2119;background:#fff}';
+  document.head.appendChild(css);
+  function mount(){
+    ['.ki-admin-panel','.ki-login-box','#lmsBuildOv','#lmsStudOv','.ki-logo span','.ki-whatsapp-float'].forEach(function(s){
+      [].forEach.call(document.querySelectorAll(s),function(n){n.classList.add('notranslate');n.setAttribute('translate','no');});
+    });
+    var host=document.createElement('div');host.id='google_translate_element';host.className='notranslate';document.body.appendChild(host);
+    var box=document.createElement('div');box.className='ki-lang notranslate';box.setAttribute('translate','no');
+    box.innerHTML='<span aria-hidden="true">🌐</span>';
+    var sel=document.createElement('select');sel.setAttribute('aria-label','Language');
+    LANGS.forEach(function(l){var o=document.createElement('option');o.value=l[0];o.textContent=l[1];if(l[0]===lang)o.selected=true;sel.appendChild(o);});
+    sel.onchange=function(){store(sel.value);cookie(sel.value);location.reload();};
+    box.appendChild(sel);document.body.appendChild(box);
+    if(lang!==SRC){
+      window.kiGT=function(){try{new google.translate.TranslateElement({pageLanguage:SRC,autoDisplay:false,includedLanguages:LANGS.map(function(l){return l[0];}).join(',')},'google_translate_element');}catch(e){}};
+      var s=document.createElement('script');s.async=true;s.src='https://translate.google.com/translate_a/element.js?cb=kiGT';s.onerror=function(){};document.head.appendChild(s);
+    }else if(hadCookie){location.reload();}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
+
 /* ═══════════════════════════════════════════════════════════
    KOULÉ ACADEMY — online courses (student side)
    Firestore model
