@@ -709,6 +709,8 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
 .lms-smt em,.lms-mod summary em{font-style:normal;font-size:.75rem;opacity:.7;margin-left:.4rem;}
 .lms-pay{background:#fff8e6;border:1px solid #f0d58a;border-radius:10px;padding:.8rem 1rem;margin-top:.9rem;font-size:.9rem;color:#3b2f00;}
 .lms-pay ol{margin:.4rem 0 0 1.1rem;padding:0;} .lms-pay p{margin:.3rem 0 0;}
+.lms-or{text-align:center;font-size:.8rem;color:var(--muted);margin:.8rem 0 .5rem;}
+.lms-inst2 summary{cursor:pointer;} .lms-bank{white-space:pre-wrap;background:#fff;border:1px solid #f0d58a;border-radius:8px;padding:.6rem;font-size:.85rem;margin:.4rem 0;}
 </style>
 <link rel="canonical" href="https://berthe98.github.io/KOULEINGENIUM/"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:url" content="https://berthe98.github.io/KOULEINGENIUM/"><meta property="og:image" content="https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg"><meta property="og:site_name" content="Koulé Ingenium"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="fr_FR"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Koulé Ingenium | Robotics, 3D Printing &amp; Online Courses"><meta name="twitter:image" content="https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"EducationalOrganization","name":"Koulé Ingenium","url":"https://berthe98.github.io/KOULEINGENIUM/","image":"https://berthe98.github.io/KOULEINGENIUM/WhatsApp%20Image%202025-09-20%20at%2021.47.34_826735ed.jpg","description":"Robotics, AI, Python and CAD education, custom 3D printing and an online academy in Ouagadougou, Burkina Faso.","telephone":"+22651881725","address":{"@type":"PostalAddress","addressLocality":"Ouagadougou","addressCountry":"BF"},"areaServed":"Burkina Faso","sameAs":["https://www.tiktok.com/@koule.ingenium","https://youtube.com/@fadelberthe7108","https://wa.me/22651881725"],"knowsLanguage":["fr","en"]}</script></head>
 <body data-view="home">
@@ -1318,7 +1320,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
   <div class="mk-overlay" id="lmsCertOv" style="z-index:8300;">
     <div class="mk-dialog" style="max-width:900px;padding:1.6rem;" role="dialog" aria-modal="true" aria-label="Certificate">
       <button class="mk-x" type="button" id="lmsCertClose" aria-label="Close">×</button>
-      <h2 style="font-size:1.4rem;margin-bottom:1rem;">Your certificate</h2>
+      <h2 style="font-size:1.4rem;margin-bottom:.6rem;">Your certificate</h2><div class="mk-f" style="max-width:260px;margin-bottom:1rem;"><label for="lmsCertLang">Certificate language</label><select id="lmsCertLang" class="notranslate" translate="no"><option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="ar">العربية</option><option value="zh">中文</option><option value="ru">Русский</option><option value="sw">Kiswahili</option></select></div>
       <img id="lmsCertImg" alt="Certificate of completion" style="width:100%;border-radius:10px;border:1px solid var(--border);">
       <div class="mk-actions"><a class="ki-btn ki-btn-primary" id="lmsCertDl" download="certificate.png">Download PNG</a><button class="ki-btn ki-btn-outline" type="button" id="lmsCertPrint" style="color:var(--text-primary);">Print</button></div>
     </div>
@@ -3084,6 +3086,38 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
         .catch(function (e) { console.error(e); showToast('Could not enrol. Please try again.'); });
     });
   }
+
+  /* ── online payment (Cloudflare Worker + CinetPay) ── */
+  L.payApi = ''; L.bank = '';
+  const canPay = c => !!(L.payApi && c && c.access === 'approval' && parseInt(c.price, 10) > 0);
+  function loadPay() {
+    if (!fbReady) return;
+    fbDb.collection('site_content').doc('payments').get().then(function (d) { L.payApi = String((d.data() || {}).api || '').replace(/\/+$/, ''); L.bank = String((d.data() || {}).bank || ''); render(); }).catch(function () {});
+  }
+  function payNow(cid) {
+    const c = course(cid); if (!c || !canPay(c)) return;
+    requireAuth(function () {
+      if (hasAccess(cid)) { go('#learn/' + cid); return; }
+      showToast('Opening the secure payment page…');
+      fbAuth.currentUser.getIdToken().then(function (tok) {
+        return fetch(L.payApi + '/pay', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ idToken: tok, courseId: cid, lang: (localStorage.getItem('ki_lang') || 'fr') }) }).then(r => r.json());
+      }).then(function (j) { if (j && j.url) location.href = j.url; else showToast((j && j.error) || 'Payment could not start. Please try again.'); })
+        .catch(function () { showToast('Payment could not start. Check your connection and try again.'); });
+    });
+  }
+  function checkReturn() {
+    let tx = ''; try { tx = new URLSearchParams(location.search).get('paid') || ''; } catch (e) {}
+    if (!tx || !L.payApi) return;
+    showToast('Confirming your payment…'); let n = 0;
+    (function poll() {
+      fetch(L.payApi + '/verify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ tx: tx }) }).then(r => r.json()).then(function (j) {
+        if (j.status === 'paid') { showToast('Payment confirmed. Your course is open. Welcome!'); try { history.replaceState(null, '', location.pathname + '#learn/' + (j.courseId || '')); } catch (e) {} if (j.courseId) go('#learn/' + j.courseId); return; }
+        if (j.status === 'failed') { showToast('The payment was not completed. You have not been charged.'); return; }
+        if (++n < 8) setTimeout(poll, 4000); else showToast('Payment still pending. If you paid, your access opens within minutes.');
+      }).catch(function () { if (++n < 8) setTimeout(poll, 4000); });
+    })();
+  }
+  window.addEventListener('load', function () { loadPay(); setTimeout(checkReturn, 1500); });
   function markDone(cid, lid, score) {
     if (!L.user) return Promise.resolve();
     const c = course(cid), cur = L.prog[cid] || {};
@@ -3147,7 +3181,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
     const mine = L.courses.filter(c => L.enroll[c.id] && L.enroll[c.id].status === 'active').length;
     return '<header class="mk-hero lms-hero"><div class="mk-hero-in"><div><h1>Koulé Academy</h1><p>Learn robotics, Python, AI and CAD with short video lessons, reading, quizzes and a certificate at the end. Create a student account, pay by Orange Money, and learn at your own pace once your access is confirmed.</p><p style="margin-top:.7rem;font-size:.9rem;">Enrolled through the Yashin classroom (Orange Money)? <a href="classroom.html" style="color:var(--gold);font-weight:600;">Open your classroom →</a></p><p style="margin-top:.5rem;font-size:.9rem;"><a href="#learn/playground" style="color:var(--gold);font-weight:600;">▶ Free code playground: run JavaScript and Python →</a></p></div>' +
       '<div class="lms-acct" id="lmsAcct">' + acctHTML() + '</div></div></header>' +
-      '<div class="mk-wrap">' + (owner ? '<div class="mk-owner-bar"><span><strong>Owner mode.</strong> Build courses, publish them and approve students.</span><button class="ki-btn ki-btn-dark" type="button" data-lms="build">Course builder</button><button class="ki-btn ki-btn-outline" type="button" data-lms="students" style="color:inherit;">Students</button><button class="ki-btn ki-btn-outline" type="button" data-lms="install" style="color:inherit;">Install all starter courses</button></div>' : '') +
+      '<div class="mk-wrap">' + (owner ? '<div class="mk-owner-bar"><span><strong>Owner mode.</strong> Build courses, publish them and approve students.</span><button class="ki-btn ki-btn-dark" type="button" data-lms="build">Course builder</button><button class="ki-btn ki-btn-outline" type="button" data-lms="students" style="color:inherit;">Students</button><button class="ki-btn ki-btn-outline" type="button" data-lms="install" style="color:inherit;">Install all starter courses</button><button class="ki-btn ki-btn-outline" type="button" data-lms="paysetup" style="color:inherit;">Payment setup</button></div>' : '') +
       (mine ? '<p class="mk-count">You are enrolled in ' + mine + (mine === 1 ? ' course.' : ' courses.') + '</p>' : '') +
       '<div class="mk-search lms-search"><input type="search" id="lmsSearch" placeholder="Search courses" value="' + esc(L.f.q) + '" aria-label="Search courses"></div>' +
       '<div class="mk-chips" id="lmsChips">' + LEVELS.map(l => '<button type="button" class="mk-chip' + (L.f.level === l ? ' active' : '') + '" data-level="' + l + '">' + l + '</button>').join('') + '</div>' +
@@ -3155,6 +3189,7 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
   }
 
   /* ── course page ── */
+  const instHTML = c => c.access === 'approval' ? '<details class="lms-pay lms-inst2"><summary><strong>Institute, school or company? Pay by bank transfer</strong></summary><p>We send you an invoice for the number of learners. ' + (L.bank ? 'Transfer to:</p><pre class="lms-bank notranslate">' + esc(L.bank) + '</pre><p>' : '') + 'Send the transfer receipt on WhatsApp with the learners\' names and emails. We open their access after the transfer is confirmed.</p><a class="ki-btn ki-btn-outline" target="_blank" rel="noopener" style="color:var(--ink)" href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello Koulé Ingenium, our institution would like an invoice for the course "' + c.title + '" (bank transfer). Number of learners: ') + '">Request an invoice</a></details>' : '';
   function ctaHTML(c) {
     const e = L.enroll[c.id], n = flat(c).length;
     if (L.ownerUid()) return '<button class="ki-btn ki-btn-primary ki-btn-block" data-lms="start">Preview course</button><div class="mk-note" style="margin-top:.7rem;">You are signed in as the owner, so every lesson is open to you.</div>';
@@ -3163,9 +3198,9 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
       return '<div class="lms-bar big"><i style="width:' + p + '%"></i></div><div class="lms-state" style="margin:.4rem 0 1rem;">' + p + '% complete</div><button class="ki-btn ki-btn-primary ki-btn-block" data-lms="start">' + (p === 0 ? 'Start course' : (p === 100 ? 'Review course' : 'Continue learning')) + '</button>' +
         (p === 100 ? '<button class="ki-btn ki-btn-outline ki-btn-block" data-lms="cert" style="margin-top:.6rem;color:var(--ink);">Get your certificate</button>' : '');
     }
-    if (e) return '<div class="lms-state pending" style="font-size:1rem;margin-bottom:.6rem;">Waiting for payment confirmation</div><div class="lms-pay"><strong>Pay by Orange Money</strong><p>Send ' + (parseInt(c.price, 10) > 0 ? '<b>' + fcfa(c.price) + '</b>' : 'the course fee') + ' to <b>' + OM + '</b>, then send us the screenshot. Your lessons open as soon as we confirm.</p></div><a class="ki-btn ki-btn-primary ki-btn-block" style="margin-top:.7rem;" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello Koulé Ingenium, I paid by Orange Money for the course "' + c.title + '". My name is ' + ((L.user && L.user.displayName) || '') + ' and my email is ' + ((L.user && L.user.email) || '') + '. Screenshot attached.') + '">Send payment proof on WhatsApp</a>';
-    return '<button class="ki-btn ki-btn-primary ki-btn-block" data-lms="enrol">' + (c.access === 'approval' ? 'Request access' : 'Enrol now — free') + '</button>' + (c.access === 'approval' ? '<div class="lms-pay"><strong>How to pay</strong><ol><li>Tap <em>Request access</em> (create your account if asked).</li><li>Send ' + (parseInt(c.price, 10) > 0 ? '<b>' + fcfa(c.price) + '</b>' : 'the course fee') + ' by <b>Orange Money to ' + OM + '</b>. Write the course name in the reference.</li><li>Send us the payment screenshot on WhatsApp. Your access opens after we confirm.</li></ol></div>' : '') + '<p class="mk-note" style="color:var(--muted);margin-top:.8rem;">' +
-      (c.access === 'approval' ? 'Lessons stay locked until we confirm your payment.' : 'You get instant access to all ' + n + ' lessons.') + (L.user ? '' : ' You will be asked to sign in or create a free account.') + '</p>';
+    if (e) return '<div class="lms-state pending" style="font-size:1rem;margin-bottom:.6rem;">Waiting for payment confirmation</div>' + (canPay(c) ? '<button class="ki-btn ki-btn-primary ki-btn-block" data-lms="pay" style="margin-bottom:.7rem;">Pay now — ' + fcfa(c.price) + '</button>' : '') + '<div class="lms-pay"><strong>Pay by Orange Money</strong><p>Send ' + (parseInt(c.price, 10) > 0 ? '<b>' + fcfa(c.price) + '</b>' : 'the course fee') + ' to <b>' + OM + '</b>, then send us the screenshot. Your lessons open as soon as we confirm.</p></div><a class="ki-btn ki-btn-primary ki-btn-block" style="margin-top:.7rem;" target="_blank" rel="noopener" href="https://wa.me/' + WA + '?text=' + encodeURIComponent('Hello Koulé Ingenium, I paid by Orange Money for the course "' + c.title + '". My name is ' + ((L.user && L.user.displayName) || '') + ' and my email is ' + ((L.user && L.user.email) || '') + '. Screenshot attached.') + '">Send payment proof on WhatsApp</a>' + instHTML(c);
+    return (canPay(c) ? '<button class="ki-btn ki-btn-primary ki-btn-block" data-lms="pay">Pay now — ' + fcfa(c.price) + '</button><p class="mk-note" style="color:var(--muted);margin:.5rem 0 0;">Orange Money, Moov or card. Your lessons open automatically when the payment is confirmed.</p><div class="lms-or">or pay manually</div>' : '') + '<button class="ki-btn ' + (canPay(c) ? 'ki-btn-outline' : 'ki-btn-primary') + ' ki-btn-block" style="' + (canPay(c) ? 'color:var(--ink)' : '') + '" data-lms="enrol">' + (c.access === 'approval' ? 'Request access' : 'Enrol now — free') + '</button>' + (c.access === 'approval' ? '<div class="lms-pay"><strong>How to pay</strong><ol><li>Tap <em>Request access</em> (create your account if asked).</li><li>Send ' + (parseInt(c.price, 10) > 0 ? '<b>' + fcfa(c.price) + '</b>' : 'the course fee') + ' by <b>Orange Money to ' + OM + '</b>. Write the course name in the reference.</li><li>Send us the payment screenshot on WhatsApp. Your access opens after we confirm.</li></ol></div>' : '') + '<p class="mk-note" style="color:var(--muted);margin-top:.8rem;">' +
+      (c.access === 'approval' ? 'Lessons stay locked until we confirm your payment.' : 'You get instant access to all ' + n + ' lessons.') + (L.user ? '' : ' You will be asked to sign in or create an account.') + '</p>' + instHTML(c);
   }
   function courseHTML(c) {
     const f = flat(c), mins = f.reduce((a, l) => a + (parseInt(l.mins, 10) || 0), 0);
@@ -3241,35 +3276,52 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
   }
 
   /* ── certificate ── */
-  function certificate(c) {
+
+  const CERT = {
+    en: ['en-GB', 'Certificate of Completion', 'This certifies that', 'has successfully completed the course', 'Founder & Instructor', 'Certificate ID'],
+    fr: ['fr-FR', 'Certificat de réussite', 'Il est certifié que', 'a terminé avec succès le cours', 'Fondatrice et formatrice', 'Certificat n°'],
+    es: ['es-ES', 'Certificado de finalización', 'Se certifica que', 'ha completado con éxito el curso', 'Fundadora e instructora', 'Certificado n.º'],
+    pt: ['pt-PT', 'Certificado de conclusão', 'Certifica-se que', 'concluiu com sucesso o curso', 'Fundadora e instrutora', 'Certificado n.º'],
+    de: ['de-DE', 'Abschlusszertifikat', 'Hiermit wird bescheinigt, dass', 'den Kurs erfolgreich abgeschlossen hat', 'Gründerin und Dozentin', 'Zertifikat-Nr.'],
+    it: ['it-IT', 'Attestato di completamento', 'Si certifica che', 'ha completato con successo il corso', 'Fondatrice e istruttrice', 'Attestato n.'],
+    ar: ['ar', 'شهادة إتمام', 'تشهد هذه الشهادة بأن', 'قد أتمّ/أتمّت بنجاح دورة', 'المؤسِّسة والمدرِّبة', 'رقم الشهادة'],
+    zh: ['zh-CN', '结业证书', '兹证明', '已成功完成课程', '创办人兼讲师', '证书编号'],
+    ru: ['ru-RU', 'Сертификат о прохождении', 'Настоящим удостоверяется, что', 'успешно завершил(а) курс', 'Основатель и преподаватель', 'Сертификат №'],
+    sw: ['sw-KE', 'Cheti cha Kuhitimu', 'Hati hii inathibitisha kwamba', 'amekamilisha kozi kwa mafanikio', 'Mwanzilishi na Mwalimu', 'Namba ya cheti']
+  };
+  let certCourse = null;
+  function certificate(c, lang) {
     const u = L.user; if (!u) return;
+    certCourse = c; if (!lang) { try { lang = localStorage.getItem('ki_lang') || (navigator.language || 'en').slice(0, 2); } catch (e) { lang = 'en'; } } if (!CERT[lang]) lang = 'en'; const T = CERT[lang], rtl = lang === 'ar'; if ($('lmsCertLang')) $('lmsCertLang').value = lang;
     const name = u.displayName || (u.email || '').split('@')[0], p = L.prog[c.id] || {};
-    const date = new Date(p.completedAt || Date.now()).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    const date = new Date(p.completedAt || Date.now()).toLocaleDateString(T[0], { day: 'numeric', month: 'long', year: 'numeric' });
     const code = 'KI-' + sha256(u.uid + c.id).slice(0, 8).toUpperCase();
     const W = 1600, H = 1130, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const x = cv.getContext('2d');
     x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
     x.strokeStyle = '#0d2119'; x.lineWidth = 10; x.strokeRect(36, 36, W - 72, H - 72);
     x.strokeStyle = '#f2b31b'; x.lineWidth = 3; x.strokeRect(62, 62, W - 124, H - 124);
-    x.textAlign = 'center'; x.fillStyle = '#0d2119';
+    x.textAlign = 'center'; x.fillStyle = '#0d2119'; if (rtl) x.direction = 'rtl';
     const serif = '"Fraunces", Georgia, "Times New Roman", serif', sans = '"DM Sans", Arial, sans-serif';
     const draw = function () {
       x.font = '600 34px ' + sans; x.fillStyle = '#8a5a00'; x.fillText('KOULÉ INGENIUM · KOULÉ ACADEMY', W / 2, 250);
-      x.fillStyle = '#0d2119'; x.font = '600 84px ' + serif; x.fillText('Certificate of Completion', W / 2, 360);
-      x.font = '400 34px ' + sans; x.fillStyle = '#55645c'; x.fillText('This certifies that', W / 2, 450);
+      x.fillStyle = '#0d2119'; x.font = '600 84px ' + serif; x.fillText(T[1], W / 2, 360);
+      x.font = '400 34px ' + sans; x.fillStyle = '#55645c'; x.fillText(T[2], W / 2, 450);
       x.fillStyle = '#0d2119'; let fs = 96; x.font = '600 ' + fs + 'px ' + serif; while (x.measureText(name).width > W - 300 && fs > 40) { fs -= 4; x.font = '600 ' + fs + 'px ' + serif; }
       x.fillText(name, W / 2, 580);
       x.fillStyle = '#f2b31b'; x.fillRect(W / 2 - 260, 612, 520, 4);
-      x.fillStyle = '#55645c'; x.font = '400 34px ' + sans; x.fillText('has successfully completed the course', W / 2, 690);
+      x.fillStyle = '#55645c'; x.font = '400 34px ' + sans; x.fillText(T[3], W / 2, 690);
       x.fillStyle = '#0d2119'; fs = 60; x.font = '600 ' + fs + 'px ' + serif; while (x.measureText(c.title).width > W - 300 && fs > 30) { fs -= 3; x.font = '600 ' + fs + 'px ' + serif; }
       x.fillText(c.title, W / 2, 790);
       x.font = '400 30px ' + sans; x.fillStyle = '#55645c'; x.fillText(date, W / 2, 870);
-      x.fillStyle = '#0d2119'; x.fillRect(W / 2 - 200, 985, 400, 2); x.font = '600 28px ' + sans; x.fillText('Berthe Fadel — Founder & Instructor', W / 2, 1025);
-      x.font = '400 22px ' + sans; x.fillStyle = '#7a8a82'; x.textAlign = 'left'; x.fillText('Certificate ID ' + code, 110, H - 100);
-      const url = cv.toDataURL('image/png'); $('lmsCertImg').src = url; $('lmsCertDl').href = url; $('lmsCertDl').download = 'Certificate - ' + c.title + '.png';
+      x.fillStyle = '#0d2119'; x.fillRect(W / 2 - 200, 985, 400, 2); x.font = '600 28px ' + sans; x.fillText('Berthe Fadel — ' + T[4], W / 2, 1025);
+      x.direction = 'ltr'; x.font = '400 22px ' + sans; x.fillStyle = '#7a8a82'; x.textAlign = 'left'; x.fillText(T[5] + ' ' + code, 110, H - 100);
+      const url = cv.toDataURL('image/png'); $('lmsCertImg').src = url; $('lmsCertDl').href = url; $('lmsCertDl').download = T[1] + ' - ' + c.title + '.png';
       $('lmsCertOv').classList.add('active');
     };
     if (typeof IMG !== 'undefined' && IMG.logo) { const im = new Image(); im.onload = function () { x.drawImage(im, W / 2 - 50, 110, 100, 100); draw(); }; im.onerror = draw; im.src = IMG.logo; } else draw();
   }
+
+  document.addEventListener('change', function (e) { if (e.target.id === 'lmsCertLang' && certCourse) certificate(certCourse, e.target.value); });
 
   /* ── render dispatcher ── */
   function render(scroll) {
@@ -3309,6 +3361,8 @@ body[data-view="home"] .ki-nav:not(.scrolled) .ki-menu-toggle span{background:#f
     if (a === 'signin') openAuth('in');
     else if (a === 'signout') { fbAuth.signOut(); showToast('Signed out.'); }
     else if (a === 'enrol') enrol(cid);
+    else if (a === 'pay') payNow(cid);
+    else if (a === 'paysetup') { const cur = L.payApi || ''; const v = prompt('Payment server address (the https link of your Cloudflare Worker). Leave empty to turn online payment off.', cur); if (v === null) return; const bk = prompt('Bank details shown to institutions (bank name, account holder, IBAN or account number). Leave empty to show only the invoice request button.', L.bank || ''); if (bk === null) return; if (fbReady) fbDb.collection('site_content').doc('payments').set({ api: v.trim(), bank: bk.trim() }).then(function () { L.payApi = v.trim().replace(/\/+$/, ''); L.bank = bk.trim(); render(true); showToast(L.payApi ? 'Online payment is ON.' : 'Online payment is OFF.'); }).catch(function () { showToast('Could not save. Sign in as owner.'); }); }
     else if (a === 'start') { const c = course(cid); if (c) go('#learn/' + cid + '/' + nextLessonId(c)); }
     else if (a === 'done') { const c = course(cid); if (c) markDone(cid, lid).then(function () { showToast('Lesson completed.'); const f = flat(c), i = f.findIndex(l => l.id === lid); if (f[i + 1]) go('#learn/' + cid + '/' + f[i + 1].id); else if (pct(c) === 100) showToast('Course completed! Your certificate is ready on the course page.'); }); }
     else if (a === 'cert') { const c = course(cid); if (c) certificate(c); }
